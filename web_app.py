@@ -1,5 +1,17 @@
 import os
 import sys
+from unittest.mock import MagicMock
+
+# Headless mock for Tkinter to allow running GUI-dependent code on a server
+sys.modules['tkinter'] = MagicMock()
+sys.modules['tkinter.ttk'] = MagicMock()
+sys.modules['tkinter.messagebox'] = MagicMock()
+sys.modules['tkinter.filedialog'] = MagicMock()
+sys.modules['tkinter.simpledialog'] = MagicMock()
+sys.modules['tkinter.commondialog'] = MagicMock()
+sys.modules['tkinter.font'] = MagicMock()
+sys.modules['_tkinter'] = MagicMock()
+
 
 # Dynamically add path to load Swiss Ephemeris and engine libraries
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
