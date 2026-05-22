@@ -291,12 +291,12 @@ def calculate():
 @app.route('/contact', methods=['POST'])
 def contact():
     contact_name = request.form.get('contact_name', '')
-    contact_email = request.form.get('contact_email', '')
+    contact_whatsapp = request.form.get('contact_whatsapp', '')
     contact_subject = request.form.get('contact_subject', '')
     contact_message = request.form.get('contact_message', '')
     
     # Save the query to a local text file and print it to Flask console
-    log_line = f"[{datetime.datetime.now()}] Name: {contact_name}, Email: {contact_email}, Subject: {contact_subject}, Message: {contact_message}\n"
+    log_line = f"[{datetime.datetime.now()}] Name: {contact_name}, WhatsApp: {contact_whatsapp}, Subject: {contact_subject}, Message: {contact_message}\n"
     print("=== NEW CONTACT INQUIRY RECEIVED ===")
     print(log_line)
     print("====================================")

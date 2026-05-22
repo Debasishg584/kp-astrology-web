@@ -265,10 +265,12 @@
                 <!-- Info Column -->
                 <div class="contact-info">
                     <div class="contact-info-card">
-                        <div class="contact-info-icon">✉️</div>
+                        <div class="contact-info-icon">💬</div>
                         <div>
-                            <h4 class="contact-info-title">{{ t('info_email_title') }}</h4>
-                            <p class="contact-info-desc">debasishguha@example.com</p>
+                            <h4 class="contact-info-title">{{ t('info_whatsapp_title') }}</h4>
+                            <p class="contact-info-desc">
+                                <a href="https://wa.me/918240954402" target="_blank" style="color: var(--gold); text-decoration: none; font-weight: 600; transition: color 0.2s;" onmouseover="this.style.color='var(--gold-hover)'" onmouseout="this.style.color='var(--gold)'">+91 82409 54402</a>
+                            </p>
                         </div>
                     </div>
                     
@@ -291,8 +293,8 @@
                             </div>
                             
                             <div class="form-group">
-                                <label for="contact_email">{{ t('contact_email_label') }}</label>
-                                <input type="email" id="contact_email" name="contact_email" required placeholder="debasish@example.com">
+                                <label for="contact_whatsapp">{{ t('contact_whatsapp_label') }}</label>
+                                <input type="tel" id="contact_whatsapp" name="contact_whatsapp" required placeholder="+91 XXXXX XXXXX">
                             </div>
                             
                             <div class="form-group">

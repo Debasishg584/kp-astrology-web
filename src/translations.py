@@ -912,7 +912,7 @@ T = {
     "contact_subtitle": {"en": "Fill the form below for any queries, premium report orders, or personal appointments.", "hi": "किसी भी प्रश्न, प्रीमियम रिपोर्ट ऑर्डर, या व्यक्तिगत नियुक्तियों के लिए नीचे दिए गए फॉर्म को भरें।", "bn": "যেকোনো জিজ্ঞাসা, প্রিমিয়াম রিপোর্ট অর্ডার বা ব্যক্তিগত অ্যাপয়েন্টমেন্টের জন্য নিচের ফর্মটি পূরণ করুন।"},
     "contact_success_msg": {"en": "Your message has been sent successfully! Astrologer Debasish Guha will contact you soon.", "hi": "आपका संदेश सफलतापूर्वक भेज दिया गया है! ज्योतिषी देबाशीष गुहा जल्द ही आपसे संपर्क करेंगे।", "bn": "আপনার বার্তাটি সফলভাবে পাঠানো হয়েছে! জ্যোতিষী দেবাশীষ গুহ খুব শীঘ্রই আপনার সাথে যোগাযোগ করবেন।"},
     "contact_name_label": {"en": "Your Name", "hi": "आपका नाम", "bn": "আপনার নাম (Your Name)"},
-    "contact_email_label": {"en": "Email Address", "hi": "ईमेल पता", "bn": "ইমেইল ঠিকানা (Email Address)"},
+    "contact_whatsapp_label": {"en": "WhatsApp Number", "hi": "व्हाट्सएप नंबर", "bn": "হোয়াটসঅ্যাপ নাম্বার"},
     "contact_subject_label": {"en": "Subject", "hi": "विषय", "bn": "বিষয় (Subject)"},
     "contact_sub_opt1": {"en": "Premium Report Order (Premium Report - ₹499)", "hi": "प्रीमियम रिपोर्ट ऑर्डर (Premium Report - ₹499)", "bn": "প্রিমিয়াম রিপোর্ট অর্ডার (Premium Report - ₹499)"},
     "contact_sub_opt2": {"en": "1-on-1 Consultation Booking (1-on-1 Consultation - ₹999)", "hi": "सीधे परामर्श बुकिंग (1-on-1 Consultation - ₹999)", "bn": "সরাসরি পরামর্শ বুকিং (1-on-1 Consultation - ₹৯৯৯)"},
@@ -921,9 +921,9 @@ T = {
     "contact_msg_label": {"en": "Message / Birth Info", "hi": "संदेश / जन्म विवरण", "bn": "বার্তা / জন্ম তথ্য (Message / Birth Info)"},
     "contact_msg_placeholder": {"en": "Enter your birth details or query here...", "hi": "अपने जन्म का विवरण या प्रश्न यहाँ दर्ज करें...", "bn": "আপনার জন্ম বিবরণ বা প্রশ্নের বিবরণ এখানে লিখুন..."},
     "contact_btn_send": {"en": "Send Message", "hi": "संदेश भेजें", "bn": "বার্তা পাঠান (Send Message)"},
-    "info_email_title": {"en": "Email Address", "hi": "ईमेल करें", "bn": "ইমেইল করুন (Email Address)"},
+    "info_whatsapp_title": {"en": "WhatsApp Contact", "hi": "व्हाट्सएप संपर्क", "bn": "হোয়াটসঅ্যাপ যোগাযোগ"},
     "info_license_title": {"en": "Desktop License Query", "hi": "डेस्कटॉप लाइसेंस पूछताछ", "bn": "ডেস্কটপ লাইসেন্স কুয়েরি"},
-    "info_license_desc": {"en": "Contact via email for offline desktop app full license key.", "hi": "ऑफ़लाइन डेस्कटॉप ऐप की पूर्ण लाइसेंस कुंजी के लिए ईमेल के माध्यम से संपर्क करें।", "bn": "অফলাইন ডেস্কটপ অ্যাপের ফুল লাইসেন্স কি-এর জন্য ইমেল মারফত যোগাযোগ করুন।"},
+    "info_license_desc": {"en": "Contact via WhatsApp for offline desktop app full license key.", "hi": "ऑफ़लाइन डेस्कटॉप ऐप की पूर्ण लाइसेंस कुंजी के लिए व्हाट्सएप के माध्यम से संपर्क करें।", "bn": "অফলাইন ডেস্কটপ অ্যাপের ফুল লাইসেন্স কি-এর জন্য হোয়াটসঅ্যাপ মারফত যোগাযোগ করুন।"},
 
     # ==========================================================================
     # REPORT PAGE TRANSLATIONS
