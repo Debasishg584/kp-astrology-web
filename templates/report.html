@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{ current_lang }}">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Astrology Report - {{ name }}</title>
+    <title>{{ t('nav_report') }} - {{ name }}</title>
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -16,17 +16,27 @@
     <header class="navbar-header">
         <div class="container nav-container">
             <a href="/" class="logo-link">
-                <span class="logo-text">DIVYA DRISHTI</span>
+                <span class="logo-text">{{ t('app_title') }}</span>
                 <span class="logo-sub">KP Vedic Astrology Suite</span>
             </a>
             <ul class="nav-menu">
-                <li class="nav-item"><a href="/">Home</a></li>
-                <li class="nav-item"><a href="/#services">Services</a></li>
-                <li class="nav-item active"><a href="#">Astrology Report</a></li>
-                <li class="nav-item"><a href="/#about">About</a></li>
-                <li class="nav-item"><a href="/#pricing">Pricing</a></li>
-                <li class="nav-item"><a href="/#contact">Contact</a></li>
-                <li class="nav-item"><a href="/" class="nav-btn">New Chart</a></li>
+                <li class="nav-item"><a href="/">{{ t('nav_home') }}</a></li>
+                <li class="nav-item"><a href="/#services">{{ t('nav_services') }}</a></li>
+                <li class="nav-item active"><a href="#">{{ t('nav_report') }}</a></li>
+                <li class="nav-item"><a href="/#about">{{ t('nav_about') }}</a></li>
+                <li class="nav-item"><a href="/#pricing">{{ t('nav_pricing') }}</a></li>
+                <li class="nav-item"><a href="/#contact">{{ t('nav_contact') }}</a></li>
+                
+                <!-- Language Selector Dropdown -->
+                <li class="nav-item lang-selector-container">
+                    <select class="lang-select" onchange="changeLanguage(this.value)">
+                        <option value="en" {% if current_lang == 'en' %}selected{% endif %}>English</option>
+                        <option value="hi" {% if current_lang == 'hi' %}selected{% endif %}>हिन्दी</option>
+                        <option value="bn" {% if current_lang == 'bn' %}selected{% endif %}>বাংলা</option>
+                    </select>
+                </li>
+                
+                <li class="nav-item"><a href="/" class="nav-btn">{{ t('nav_free_chart') }}</a></li>
             </ul>
         </div>
     </header>
@@ -34,42 +44,42 @@
     <div class="container animate-fade-in" style="margin-top: 2rem;">
         
         <!-- Back Button -->
-        <a href="/" style="display: inline-block; color: var(--gold); text-decoration: none; margin-bottom: 1.5rem; font-weight: bold; font-size: 0.95rem; transition: color 0.2s;">← Calculate Another Chart</a>
+        <a href="/" style="display: inline-block; color: var(--gold); text-decoration: none; margin-bottom: 1.5rem; font-weight: bold; font-size: 0.95rem; transition: color 0.2s;">{{ t('report_back_btn') }}</a>
 
         <!-- Native Profile Card -->
         <div class="card">
-            <h2 class="card-title">Birth Information Summary</h2>
+            <h2 class="card-title">{{ t('report_birth_summary') }}</h2>
             <div class="form-grid">
                 <div>
-                    <label>Name</label>
+                    <label>{{ t('name') }}</label>
                     <p style="font-size: 1.2rem; font-weight: bold; color: #ffffff;">{{ name }}</p>
                 </div>
                 <div>
-                    <label>Date of Birth</label>
-                    <p style="font-size: 1.2rem; font-weight: bold; color: #ffffff;">{{ birth_date }}</p>
+                    <label>{{ t('dob_label') }}</label>
+                    <p style="font-size: 1.2rem; font-weight: bold; color: #ffffff;">{{ n(birth_date) }}</p>
                 </div>
                 <div>
-                    <label>Time of Birth</label>
-                    <p style="font-size: 1.2rem; font-weight: bold; color: #ffffff;">{{ birth_time }}</p>
+                    <label>{{ t('tob_label') }}</label>
+                    <p style="font-size: 1.2rem; font-weight: bold; color: #ffffff;">{{ n(birth_time) }}</p>
                 </div>
                 <div>
-                    <label>Coordinates</label>
-                    <p style="font-size: 1.1rem; color: #ffffff;">{{ lat }}° N, {{ lon }}° E (Timezone: {{ tz }})</p>
+                    <label>{{ t('lat_label') }} & {{ t('lon_label') }}</label>
+                    <p style="font-size: 1.1rem; color: #ffffff;">{{ n(lat) }}° N, {{ n(lon) }}° E ({{ t('tz_label') }}: {{ n(tz) }})</p>
                 </div>
             </div>
         </div>
 
         <!-- Visual Kundli Chart Card -->
         <div class="card full-width" style="margin-top: 2rem;">
-            <h2 class="card-title">Visual Birth Chart (Kundli)</h2>
+            <h2 class="card-title">{{ t('report_visual_kundli') }}</h2>
             <div style="display: flex; flex-wrap: wrap; gap: 1rem; margin-bottom: 1.5rem; justify-content: space-between; align-items: center;">
                 <div class="toggle-group" style="display: flex; gap: 0.5rem; background: rgba(30, 30, 50, 0.4); padding: 4px; border-radius: 8px; border: 1px solid var(--card-border);">
-                    <button id="btn-north-indian" class="tab-btn active" style="margin-bottom:0; padding: 0.5rem 1rem; border-bottom: none; border-radius: 6px;" onclick="setChartStyle('north')">North Indian (Diamond)</button>
-                    <button id="btn-south-indian" class="tab-btn" style="margin-bottom:0; padding: 0.5rem 1rem; border-bottom: none; border-radius: 6px;" onclick="setChartStyle('south')">South Indian (Box)</button>
+                    <button id="btn-north-indian" class="tab-btn active" style="margin-bottom:0; padding: 0.5rem 1rem; border-bottom: none; border-radius: 6px;" onclick="setChartStyle('north')">{{ t('report_north_diamond') }}</button>
+                    <button id="btn-south-indian" class="tab-btn" style="margin-bottom:0; padding: 0.5rem 1rem; border-bottom: none; border-radius: 6px;" onclick="setChartStyle('south')">{{ t('report_south_box') }}</button>
                 </div>
                 <div class="toggle-group" style="display: flex; gap: 0.5rem; background: rgba(30, 30, 50, 0.4); padding: 4px; border-radius: 8px; border: 1px solid var(--card-border);">
-                    <button id="btn-rasi-chart" class="tab-btn active" style="margin-bottom:0; padding: 0.5rem 1rem; border-bottom: none; border-radius: 6px;" onclick="setChartMode('rasi')">Rasi Chart (D1)</button>
-                    <button id="btn-bhava-chart" class="tab-btn" style="margin-bottom:0; padding: 0.5rem 1rem; border-bottom: none; border-radius: 6px;" onclick="setChartMode('bhava')">Bhava Chalit</button>
+                    <button id="btn-rasi-chart" class="tab-btn active" style="margin-bottom:0; padding: 0.5rem 1rem; border-bottom: none; border-radius: 6px;" onclick="setChartMode('rasi')">{{ t('report_rasi_chart') }}</button>
+                    <button id="btn-bhava-chart" class="tab-btn" style="margin-bottom:0; padding: 0.5rem 1rem; border-bottom: none; border-radius: 6px;" onclick="setChartMode('bhava')">{{ t('report_bhava_chart') }}</button>
                 </div>
             </div>
             
@@ -83,28 +93,28 @@
         <div class="report-grid">
             <!-- Planetary Positions -->
             <div class="card">
-                <h2 class="card-title">Planetary Positions & Star Lords</h2>
+                <h2 class="card-title">{{ t('report_planet_pos') }}</h2>
                 <div class="table-container">
                     <table>
                         <thead>
                             <tr>
-                                <th>Planet</th>
-                                <th>Longitude</th>
-                                <th>Sign</th>
-                                <th>Nakshatra</th>
-                                <th>Star Lord</th>
-                                <th>Sub Lord</th>
+                                <th>{{ t('col_planet') }}</th>
+                                <th>{{ t('col_longitude') }}</th>
+                                <th>{{ t('col_sign') }}</th>
+                                <th>{{ t('col_nakshatra') }}</th>
+                                <th>{{ t('col_star_lord') }}</th>
+                                <th>{{ t('col_sub_lord') }}</th>
                             </tr>
                         </thead>
                         <tbody>
                             {% for p in chart.planetary_positions %}
                             <tr>
-                                <td style="font-weight: bold;">{{ p.planet }}</td>
-                                <td>{{ p.longitude_dms }}</td>
-                                <td>{{ p.sign }}</td>
-                                <td>{{ p.nakshatra }}</td>
-                                <td>{{ p.star_lord }}</td>
-                                <td style="color: var(--gold); font-weight: bold;">{{ p.sub_lord }}</td>
+                                <td style="font-weight: bold;">{{ tp(p.planet) }}</td>
+                                <td>{{ n(p.longitude_dms) }}</td>
+                                <td>{{ ts(p.sign) }}</td>
+                                <td>{{ tn(p.nakshatra) }}</td>
+                                <td>{{ tp(p.star_lord) }}</td>
+                                <td style="color: var(--gold); font-weight: bold;">{{ tp(p.sub_lord) }}</td>
                             </tr>
                             {% endfor %}
                         </tbody>
@@ -114,28 +124,28 @@
 
             <!-- House Cusps -->
             <div class="card">
-                <h2 class="card-title">House Cusps (Placidus Houses)</h2>
+                <h2 class="card-title">{{ t('report_house_cusp') }}</h2>
                 <div class="table-container">
                     <table>
                         <thead>
                             <tr>
-                                <th>Cusp</th>
-                                <th>Longitude</th>
-                                <th>Sign</th>
-                                <th>Sign Lord</th>
-                                <th>Star Lord</th>
-                                <th>Sub Lord</th>
+                                <th>{{ t('col_cusp') }}</th>
+                                <th>{{ t('col_longitude') }}</th>
+                                <th>{{ t('col_sign') }}</th>
+                                <th>{{ t('col_sign_lord') }}</th>
+                                <th>{{ t('col_star_lord') }}</th>
+                                <th>{{ t('col_sub_lord') }}</th>
                             </tr>
                         </thead>
                         <tbody>
                             {% for c in chart.house_cusps %}
                             <tr>
-                                <td style="font-weight: bold;">Cusp {{ c.cusp }}</td>
-                                <td>{{ c.longitude_dms }}</td>
-                                <td>{{ c.sign }}</td>
-                                <td>{{ c.sign_lord }}</td>
-                                <td>{{ c.star_lord }}</td>
-                                <td style="color: var(--gold); font-weight: bold;">{{ c.sub_lord }}</td>
+                                <td style="font-weight: bold;">{{ t('col_cusp') }} {{ n(c.cusp) }}</td>
+                                <td>{{ n(c.longitude_dms) }}</td>
+                                <td>{{ ts(c.sign) }}</td>
+                                <td>{{ tp(c.sign_lord) }}</td>
+                                <td>{{ tp(c.star_lord) }}</td>
+                                <td style="color: var(--gold); font-weight: bold;">{{ tp(c.sub_lord) }}</td>
                             </tr>
                             {% endfor %}
                         </tbody>
@@ -145,22 +155,22 @@
 
             <!-- Planet Significators -->
             <div class="card full-width">
-                <h2 class="card-title">KP Planetary Significators</h2>
+                <h2 class="card-title">{{ t('report_planet_sig') }}</h2>
                 <div class="table-container">
                     <table>
                         <thead>
                             <tr>
-                                <th>Planet</th>
-                                <th>Source Row (Occupies & Owns)</th>
-                                <th>Result Row (Star Lord & Sub Lord CSL connections)</th>
+                                <th>{{ t('col_planet') }}</th>
+                                <th>{{ t('report_source_row') }}</th>
+                                <th>{{ t('report_result_row') }}</th>
                             </tr>
                         </thead>
                         <tbody>
                             {% for s in chart.planet_significators %}
                             <tr>
-                                <td style="font-weight: bold; font-size: 1.1rem; color: var(--gold);">{{ s.planet }}</td>
-                                <td style="font-family: monospace; font-size: 1rem;">{{ s.Source_Row }}</td>
-                                <td style="font-family: monospace; font-size: 1rem; color: #ffffff;">{{ s.Result_Row }}</td>
+                                <td style="font-weight: bold; font-size: 1.1rem; color: var(--gold);">{{ tp(s.planet) }}</td>
+                                <td style="font-family: monospace; font-size: 1rem;">{{ n(s.Source_Row) }}</td>
+                                <td style="font-family: monospace; font-size: 1rem; color: #ffffff;">{{ n(s.Result_Row) }}</td>
                             </tr>
                             {% endfor %}
                         </tbody>
@@ -170,21 +180,21 @@
 
             <!-- AI & KP Forensic Predictions -->
             <div class="card full-width">
-                <h2 class="card-title">AI & KP Forensic Narrative Report</h2>
+                <h2 class="card-title">{{ t('report_narrative_title') }}</h2>
                 
                 <div class="tabs-header">
-                    <button class="tab-btn active" onclick="openTab(event, 'tab-purpose')">Dharma & Purpose</button>
-                    <button class="tab-btn" onclick="openTab(event, 'tab-family')">Family & Relations</button>
-                    <button class="tab-btn" onclick="openTab(event, 'tab-education')">Wisdom & Skills</button>
-                    <button class="tab-btn" onclick="openTab(event, 'tab-career')">Career & Wealth</button>
-                    <button class="tab-btn" onclick="openTab(event, 'tab-marriage')">Marriage Stability</button>
+                    <button class="tab-btn active" onclick="openTab(event, 'tab-purpose')">{{ t('report_tab_purpose') }}</button>
+                    <button class="tab-btn" onclick="openTab(event, 'tab-family')">{{ t('report_tab_family') }}</button>
+                    <button class="tab-btn" onclick="openTab(event, 'tab-education')">{{ t('report_tab_education') }}</button>
+                    <button class="tab-btn" onclick="openTab(event, 'tab-career')">{{ t('report_tab_career') }}</button>
+                    <button class="tab-btn" onclick="openTab(event, 'tab-marriage')">{{ t('report_tab_marriage') }}</button>
                 </div>
 
                 <!-- Tab: Purpose -->
                 <div id="tab-purpose" class="tab-content active">
                     {% for topic, text in predictions.WHO_AM_I.items() %}
                     <div class="prediction-topic">
-                        <h3 class="prediction-title">🔮 {{ topic }}</h3>
+                        <h3 class="prediction-title">🔮 {{ t(topic) }}</h3>
                         <p class="prediction-text">{{ text }}</p>
                     </div>
                     {% endfor %}
@@ -194,7 +204,7 @@
                 <div id="tab-family" class="tab-content">
                     {% for topic, text in predictions.FAMILY.items() %}
                     <div class="prediction-topic">
-                        <h3 class="prediction-title">🔮 {{ topic }}</h3>
+                        <h3 class="prediction-title">🔮 {{ t(topic) }}</h3>
                         <p class="prediction-text">{{ text }}</p>
                     </div>
                     {% endfor %}
@@ -204,7 +214,7 @@
                 <div id="tab-education" class="tab-content">
                     {% for topic, text in predictions.KNOWLEDGE.items() %}
                     <div class="prediction-topic">
-                        <h3 class="prediction-title">🔮 {{ topic }}</h3>
+                        <h3 class="prediction-title">🔮 {{ t(topic) }}</h3>
                         <p class="prediction-text">{{ text }}</p>
                     </div>
                     {% endfor %}
@@ -214,7 +224,7 @@
                 <div id="tab-career" class="tab-content">
                     {% for topic, text in predictions.WORK.items() %}
                     <div class="prediction-topic">
-                        <h3 class="prediction-title">🔮 {{ topic }}</h3>
+                        <h3 class="prediction-title">🔮 {{ t(topic) }}</h3>
                         <p class="prediction-text">{{ text }}</p>
                     </div>
                     {% endfor %}
@@ -223,7 +233,7 @@
                 <!-- Tab: Marriage -->
                 <div id="tab-marriage" class="tab-content">
                     <div class="prediction-topic">
-                        <h3 class="prediction-title">💍 Marriage Promise & Stability Verdict</h3>
+                        <h3 class="prediction-title">{{ t('report_marriage_promise_title') }}</h3>
                         <p class="prediction-text" style="font-size: 1.1rem; color: #ffffff; padding: 1rem; background: rgba(246, 201, 14, 0.05); border-left: 4px solid var(--gold); border-radius: 4px;">
                             {{ marriage.Promise }}
                         </p>
@@ -231,26 +241,28 @@
                     
                     {% if marriage.Event_Windows %}
                     <div class="prediction-topic" style="margin-top: 1.5rem;">
-                        <h3 class="prediction-title" style="color: var(--danger);">⚠️ Detected Forensic Separation Windows</h3>
+                        <h3 class="prediction-title" style="color: var(--danger);">{{ t('report_sep_title') }}</h3>
                         <p class="prediction-text" style="margin-bottom: 1rem; color: var(--text-dim);">
-                            The timing engine checks 6-8-12 dasha periods coupled with transits in the 7th and 8th house sign lords:
+                            {{ t('report_sep_desc') }}
                         </p>
                         <div class="table-container">
                             <table>
                                 <thead>
                                     <tr>
-                                        <th>Date Range</th>
-                                        <th>Dasha Period</th>
-                                        <th>Negation Houses Involved</th>
-                                        <th>Status/Severity</th>
+                                        <th>{{ t('report_sep_headers_window') }}</th>
+                                        <th>{{ t('report_sep_headers_dasha') }}</th>
+                                        <th>{{ t('report_sep_headers_houses') }}</th>
+                                        <th>{{ t('report_sep_headers_stability') }}</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     {% for w in marriage.Event_Windows %}
                                     <tr>
-                                        <td style="font-weight: bold; color: var(--danger);">{{ w.window }}</td>
-                                        <td>{{ w.dasha }}</td>
-                                        <td>{{ w.houses }}</td>
+                                        <td style="font-weight: bold; color: var(--danger);">{{ n(w.window) }}</td>
+                                        <td>
+                                            {% for part in w.dasha.split('-') %}{{ tp(part) }}{% if not loop.last %}-{% endif %}{% endfor %}
+                                        </td>
+                                        <td>{{ n(w.houses) }}</td>
                                         <td style="color: #ffffff;"><span class="info-badge" style="background: rgba(239, 68, 68, 0.1); border-color: var(--danger); color: var(--danger);">{{ w.stability }}</span></td>
                                     </tr>
                                     {% endfor %}
@@ -260,9 +272,9 @@
                     </div>
                     {% else %}
                     <div class="prediction-topic" style="margin-top: 1.5rem;">
-                        <h3 class="prediction-title" style="color: var(--success);">✅ Separation Forensic Status</h3>
+                        <h3 class="prediction-title" style="color: var(--success);">{{ t('report_sep_safe_title') }}</h3>
                         <p class="prediction-text" style="color: var(--success); font-weight: bold;">
-                            No severe separation or divorce timeline windows detected between ages 18 and 60.
+                            {{ t('report_sep_safe') }}
                         </p>
                     </div>
                     {% endif %}
@@ -272,12 +284,12 @@
 
         <!-- Monetization CTA Banner -->
         <div class="cta-banner">
-            <h3 class="cta-title">Need a Full Professional Consultation or PDF Report?</h3>
-            <p class="cta-sub">Consultation & Licensing by Debasish Guha</p>
+            <h3 class="cta-title">{{ t('report_cta_title') }}</h3>
+            <p class="cta-sub">{{ t('report_cta_sub') }}</p>
             <p class="cta-desc">
-                Unlock deep life-span calculation analysis, multi-dasa timeline scans, and comprehensive Lal Kitab remedies. Contact Debasish Guha directly to order a custom-printed manual PDF report or to purchase the offline desktop software license key.
+                {{ t('report_cta_desc') }}
             </p>
-            <a href="/#contact" class="cta-contact">Contact for Full Consultation</a>
+            <a href="/#contact" class="cta-contact">{{ t('report_cta_btn') }}</a>
         </div>
     </div>
 
@@ -290,11 +302,11 @@
             </div>
             
             <ul class="footer-links">
-                <li><a href="/">Home</a></li>
-                <li><a href="/#services">Services</a></li>
-                <li><a href="/">Calculator</a></li>
-                <li><a href="/#pricing">Pricing</a></li>
-                <li><a href="/#contact">Contact</a></li>
+                <li><a href="/">{{ t('nav_home') }}</a></li>
+                <li><a href="/#services">{{ t('nav_services') }}</a></li>
+                <li><a href="/">{{ t('nav_calculator') }}</a></li>
+                <li><a href="/#pricing">{{ t('nav_pricing') }}</a></li>
+                <li><a href="/#contact">{{ t('nav_contact') }}</a></li>
             </ul>
             
             <p class="footer-copy">
@@ -308,6 +320,12 @@
 
     <!-- JavaScript to handle tabs & Visual SVG Chart -->
     <script>
+        function changeLanguage(lang) {
+            const url = new URL(window.location.href);
+            url.searchParams.set('lang', lang);
+            window.location.href = url.toString();
+        }
+
         function openTab(evt, tabId) {
             // Get all tab contents
             const tabContents = document.getElementsByClassName("tab-content");

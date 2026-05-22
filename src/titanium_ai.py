@@ -253,12 +253,16 @@ class MarriageWidowedForensics:
         
         self.language = self.chart_data.get('metadata', {}).get('language', 'en')
         promise_verdict = "Denied"
+        csl_planet_trans = t(f"p_{csl_planet}", self.language)
+        if csl_planet_trans == f"p_{csl_planet}":
+            csl_planet_trans = csl_planet
+            
         if not has_marriage:
-            promise_verdict = t("Marriage NOT Promised (7th CSL {csl_planet} lacks 2/11).", self.language, csl_planet=csl_planet)
+            promise_verdict = t("Marriage NOT Promised (7th CSL {csl_planet} lacks 2/11).", self.language, csl_planet=csl_planet_trans)
         elif has_marriage and has_separation_promise:
-            promise_verdict = t("Marriage happened but separation confirmed (7th CSL {csl_planet} shows 2/11 and 1/6/8/12).", self.language, csl_planet=csl_planet)
+            promise_verdict = t("Marriage happened but separation confirmed (7th CSL {csl_planet} shows 2/11 and 1/6/8/12).", self.language, csl_planet=csl_planet_trans)
         else:
-            promise_verdict = t("Stable Marriage promised (7th CSL {csl_planet} lacks 1/6/8/12).", self.language, csl_planet=csl_planet)
+            promise_verdict = t("Stable Marriage promised (7th CSL {csl_planet} lacks 1/6/8/12).", self.language, csl_planet=csl_planet_trans)
 
         windows = []
         sep_houses = {6, 8, 12}

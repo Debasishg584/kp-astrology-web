@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{ current_lang }}">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Divya Drishti - Professional KP Astrology Consultation</title>
+    <title>{{ t('app_title') }} - Professional KP Astrology Consultation</title>
     <!-- CSS Stylesheet -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
@@ -13,17 +13,27 @@
     <header class="navbar-header">
         <div class="container nav-container">
             <a href="#" class="logo-link">
-                <span class="logo-text">DIVYA DRISHTI</span>
+                <span class="logo-text">{{ t('app_title') }}</span>
                 <span class="logo-sub">KP Vedic Astrology Suite</span>
             </a>
             <ul class="nav-menu">
-                <li class="nav-item"><a href="#">Home</a></li>
-                <li class="nav-item"><a href="#services">Services</a></li>
-                <li class="nav-item"><a href="#calculator">Calculator</a></li>
-                <li class="nav-item"><a href="#about">About</a></li>
-                <li class="nav-item"><a href="#pricing">Pricing</a></li>
-                <li class="nav-item"><a href="#contact">Contact</a></li>
-                <li class="nav-item"><a href="#calculator" class="nav-btn">Free Chart</a></li>
+                <li class="nav-item"><a href="#">{{ t('nav_home') }}</a></li>
+                <li class="nav-item"><a href="#services">{{ t('nav_services') }}</a></li>
+                <li class="nav-item"><a href="#calculator">{{ t('nav_calculator') }}</a></li>
+                <li class="nav-item"><a href="#about">{{ t('nav_about') }}</a></li>
+                <li class="nav-item"><a href="#pricing">{{ t('nav_pricing') }}</a></li>
+                <li class="nav-item"><a href="#contact">{{ t('nav_contact') }}</a></li>
+                
+                <!-- Language Selector Dropdown -->
+                <li class="nav-item lang-selector-container">
+                    <select class="lang-select" onchange="changeLanguage(this.value)">
+                        <option value="en" {% if current_lang == 'en' %}selected{% endif %}>English</option>
+                        <option value="hi" {% if current_lang == 'hi' %}selected{% endif %}>हिन्दी</option>
+                        <option value="bn" {% if current_lang == 'bn' %}selected{% endif %}>বাংলা</option>
+                    </select>
+                </li>
+                
+                <li class="nav-item"><a href="#calculator" class="nav-btn">{{ t('nav_free_chart') }}</a></li>
             </ul>
         </div>
     </header>
@@ -31,14 +41,14 @@
     <!-- Hero Section -->
     <section class="hero-section">
         <div class="container animate-fade-in">
-            <span class="hero-tag">Vedic Forensics & KP Astrological Science</span>
-            <h1 class="hero-title">Discover Your Destiny With <span>Mathematical Precision</span></h1>
+            <span class="hero-tag">{{ t('hero_tag') }}</span>
+            <h1 class="hero-title">{{ t('hero_title_1') }} <span>{{ t('hero_title_2') }}</span></h1>
             <p class="hero-subtitle">
-                উন্নত কৃষ্ণমূর্তি পদ্ধতি (KP System) ও বৈদিক রাশিচক্রের নিখুঁত গাণিতিক বিশ্লেষণের মাধ্যমে আপনার জীবনের অতীত, বর্তমান এবং ভবিষ্যতের সঠিক দিকনির্দেশনা জানুন।
+                {{ t('hero_subtitle') }}
             </p>
             <div class="hero-buttons">
-                <a href="#calculator" class="btn-primary">জন্মাঙ্গ গণনা (Calculate Chart)</a>
-                <a href="#contact" class="btn-secondary">পরামর্শ নিন (Consultation)</a>
+                <a href="#calculator" class="btn-primary">{{ t('hero_btn_calc') }}</a>
+                <a href="#contact" class="btn-secondary">{{ t('hero_btn_consult') }}</a>
             </div>
         </div>
     </section>
@@ -47,41 +57,41 @@
     <section id="services" class="section-padding">
         <div class="container">
             <div class="section-header">
-                <h2 class="section-title">আমাদের সেবাসমূহ (Astrology Services)</h2>
-                <p class="section-subtitle">গাণিতিক নির্ভুলতা এবং বৈজ্ঞানিক জ্যোতিষতত্ত্বের সমন্বয়ে আপনার জীবনের প্রতিটি গুরুত্বপূর্ণ প্রশ্নের উত্তর লাভ করুন।</p>
+                <h2 class="section-title">{{ t('services_title') }}</h2>
+                <p class="section-subtitle">{{ t('services_subtitle') }}</p>
             </div>
             
             <div class="services-grid">
                 <!-- Service 1 -->
                 <div class="card service-card">
                     <div class="service-icon">💍</div>
-                    <h3 class="service-title">বিবাহ ও যোটক বিচার (Marriage Forensics)</h3>
+                    <h3 class="service-title">{{ t('service_1_title') }}</h3>
                     <p class="service-desc">
-                        বিবাহের সঠিক সময় নির্ধারণ, দাম্পত্য সুখ-শান্তির প্রতিশ্রুতি এবং আইনি জটিলতা বা বিচ্ছেদের সম্ভাবনা নিয়ে বিস্তারিত কেপি সাব-লর্ড ভিত্তিক বিশ্লেষণ ও প্রতিকার।
+                        {{ t('service_1_desc') }}
                     </p>
                 </div>
                 <!-- Service 2 -->
                 <div class="card service-card">
                     <div class="service-icon">💼</div>
-                    <h3 class="service-title">জীবিকা ও অর্থযোগ (Career & Wealth)</h3>
+                    <h3 class="service-title">{{ t('service_2_title') }}</h3>
                     <p class="service-desc">
-                        চাকরি না ব্যবসা? পদোন্নতির সঠিক সময় নির্ধারণ, কর্মক্ষেত্রে বাধা এবং আর্থিক অগ্রগতির সঠিক কোষ্ঠী বিচার ও রাশিচক্রের বিশ্লেষণ।
+                        {{ t('service_2_desc') }}
                     </p>
                 </div>
                 <!-- Service 3 -->
                 <div class="card service-card">
                     <div class="service-icon">📚</div>
-                    <h3 class="service-title">শিক্ষা ও মেধা বিচার (Wisdom & Skills)</h3>
+                    <h3 class="service-title">{{ t('service_3_title') }}</h3>
                     <p class="service-desc">
-                        প্রাথমিক ও উচ্চ শিক্ষার যোগ, বিদেশের বিশ্ববিদ্যালয়ে পড়াশোনার সম্ভাবনা এবং সন্তানের ভবিষ্যৎ কর্মমুখী শিক্ষার দিকনির্দেশনা।
+                        {{ t('service_3_desc') }}
                     </p>
                 </div>
                 <!-- Service 4 -->
                 <div class="card service-card">
                     <div class="service-icon">🌟</div>
-                    <h3 class="service-title">কর্মফল ও প্রতিকার (Karmic Remedies)</h3>
+                    <h3 class="service-title">{{ t('service_4_title') }}</h3>
                     <p class="service-desc">
-                        লাল কিতাব, বৈদিক মন্ত্র, কুষ্টির দুর্বল গ্রহসমূহকে সবল করার বিশেষ কেপি প্রতিকার যা আপনার জীবনের নেতিবাচক প্রভাবকে প্রতিহত করবে।
+                        {{ t('service_4_desc') }}
                     </p>
                 </div>
             </div>
@@ -92,16 +102,16 @@
     <section id="calculator" class="section-padding" style="background: rgba(124, 58, 237, 0.02);">
         <div class="container">
             <div class="section-header">
-                <h2 class="section-title">বিনামূল্যে কুষ্ঠি গণনা (Free Kundli Calculator)</h2>
-                <p class="section-subtitle">আপনার জন্ম বিবরণী প্রদান করুন এবং অবিলম্বে একটি নিখুঁত জ্যোতিষীয় গণনাপত্র (KP Predictive Report) তৈরি করুন।</p>
+                <h2 class="section-title">{{ t('calc_title') }}</h2>
+                <p class="section-subtitle">{{ t('calc_subtitle') }}</p>
             </div>
 
             <div class="card">
-                <h3 class="card-title">জন্মের বিবরণ পূরণ করুন (Enter Birth Details)</h3>
+                <h3 class="card-title">{{ t('form_title') }}</h3>
                 
                 <!-- City Selector Helper -->
                 <div class="city-selector-container">
-                    <div class="city-selector-label">দ্রুত স্থান নির্বাচন (Quick City Autocomplete):</div>
+                    <div class="city-selector-label">{{ t('quick_city') }}</div>
                     <div class="city-grid">
                         <button type="button" class="city-chip" onclick="fillCity('Kolkata', '22.5726', '88.3639', '+05:30')">Kolkata (কলকাতা)</button>
                         <button type="button" class="city-chip" onclick="fillCity('Dhaka', '23.8103', '90.4125', '+05:30')">Dhaka (ঢাকা)</button>
@@ -119,31 +129,31 @@
                 <form action="/calculate" method="POST">
                     <div class="form-grid">
                         <div class="form-group">
-                            <label for="name">আপনার নাম (Full Name)</label>
-                            <input type="text" id="name" name="name" required placeholder="উদা: Debasish Guha">
+                            <label for="name">{{ t('name_label') }}</label>
+                            <input type="text" id="name" name="name" required placeholder="{{ t('name_placeholder') }}">
                         </div>
                         <div class="form-group">
-                            <label for="birth_date">জন্ম তারিখ (Birth Date - DD-MM-YYYY)</label>
+                            <label for="birth_date">{{ t('dob_label') }}</label>
                             <input type="text" id="birth_date" name="birth_date" required placeholder="16-11-1983">
                         </div>
                         <div class="form-group">
-                            <label for="birth_time">জন্ম সময় (Birth Time - HH:MM:SS)</label>
+                            <label for="birth_time">{{ t('tob_label') }}</label>
                             <input type="text" id="birth_time" name="birth_time" required placeholder="04:36:00">
                         </div>
                         <div class="form-group">
-                            <label for="latitude">অক্ষাংশ (Latitude - Decimal)</label>
+                            <label for="latitude">{{ t('lat_label_full') }}</label>
                             <input type="text" id="latitude" name="latitude" required placeholder="22.5726">
                         </div>
                         <div class="form-group">
-                            <label for="longitude">দ্রাঘিমাংশ (Longitude - Decimal)</label>
+                            <label for="longitude">{{ t('lon_label_full') }}</label>
                             <input type="text" id="longitude" name="longitude" required placeholder="88.3639">
                         </div>
                         <div class="form-group">
-                            <label for="timezone">টাইমজোন (Timezone Offset)</label>
+                            <label for="timezone">{{ t('tz_label_full') }}</label>
                             <input type="text" id="timezone" name="timezone" required placeholder="+05:30" value="+05:30">
                         </div>
                     </div>
-                    <button type="submit" class="btn-primary" style="width: 100%; border: none;">জন্মাঙ্গ কুষ্ঠি তৈরি করুন (Generate KP Chart)</button>
+                    <button type="submit" class="btn-primary" style="width: 100%; border: none;">{{ t('btn_calc_submit') }}</button>
                 </form>
             </div>
         </div>
@@ -161,16 +171,16 @@
                     </div>
                 </div>
                 <div class="about-text">
-                    <span class="hero-tag" style="margin-bottom: 0.75rem;">পরিচিতি (Introduction)</span>
-                    <h3>জ্যোতিষী দেবাশীষ গুহ (Astrologer Debasish Guha)</h3>
+                    <span class="hero-tag" style="margin-bottom: 0.75rem;">{{ t('about_intro') }}</span>
+                    <h3>{{ t('about_title') }}</h3>
                     <p>
-                        স্বাগতম! আমি দেবাশীষ গুহ, বিগত বহু বছর ধরে গাণিতিক জ্যোতিষশাস্ত্রের সবচেয়ে আধুনিক ও প্রামাণ্য শাখা <strong>কৃষ্ণমূর্তি পদ্ধতি (KP System)</strong> নিয়ে সফলতার সাথে কাজ করছি। 
+                        {{ t('about_p1') }}
                     </p>
                     <p>
-                        আমার লক্ষ্য সাধারণ কুসংস্কার ও ভাসাভাসা অনুমানের বাইরে গিয়ে জ্যোতিষশাস্ত্রকে একটি নির্ভুল গাণিতিক বিজ্ঞান হিসেবে মানুষের সামনে তুলে ধরা। গ্রহের অবস্থান, নক্ষত্রাধিপতি (Star Lord) এবং উপ-অধিপতির (Sub Lord) পারস্পরিক সম্পর্কের উপর ভিত্তি করে জীবনের গুরুত্বপূর্ণ বিষয়ের নিখুঁত সমকাল নির্ণয় করাই আমার বিশেষত্ব।
+                        {{ t('about_p2') }}
                     </p>
                     <p>
-                        অনলাইন এবং অফলাইন উভয় মাধ্যমেই আমি সেবা প্রদান করে থাকি। আমার এই ওয়েবসাইটটি তৈরি করা হয়েছে যাতে অতি সহজে যেকোনো মানুষ নিজ ঘরে বসেই তাদের জন্মের সঠিক মহাজাগতিক চিত্রটি বিনামূল্যে গণনা করতে পারে।
+                        {{ t('about_p3') }}
                     </p>
                 </div>
             </div>
@@ -181,55 +191,55 @@
     <section id="pricing" class="section-padding" style="background: rgba(124, 58, 237, 0.02);">
         <div class="container">
             <div class="section-header">
-                <h2 class="section-title">পরামর্শ ও সেবার মূল্য তালিকা (Pricing Plans)</h2>
-                <p class="section-subtitle">আপনার প্রয়োজন অনুযায়ী সঠিক জ্যোতিষ সেবাটি বেছে নিন।</p>
+                <h2 class="section-title">{{ t('pricing_title') }}</h2>
+                <p class="section-subtitle">{{ t('pricing_subtitle') }}</p>
             </div>
 
             <div class="pricing-grid">
                 <!-- Free Plan -->
                 <div class="card pricing-card">
                     <div class="price-header">
-                        <h3 class="price-title">ফ্রি চার্ট গণনা</h3>
-                        <div class="price-val">₹0 / Free</div>
+                        <h3 class="price-title">{{ t('plan_1_title') }}</h3>
+                        <div class="price-val">{{ t('plan_1_price') }}</div>
                     </div>
                     <ul class="price-features">
-                        <li>সাধারণ কুষ্ঠি চার্ট (Rasi & Bhava)</li>
-                        <li>গ্রহ ও ভাবের সঠিক ডিগ্রি বিবরণ</li>
-                        <li>কেপি গ্রহ ও ভাব নির্দেশক ছক</li>
-                        <li>স্বয়ংক্রিয় এআই সাধারণ পূর্বাভাস</li>
+                        <li>{{ t('plan_1_f1') }}</li>
+                        <li>{{ t('plan_1_f2') }}</li>
+                        <li>{{ t('plan_1_f3') }}</li>
+                        <li>{{ t('plan_1_f4') }}</li>
                     </ul>
-                    <a href="#calculator" class="price-btn free">গণনা করুন</a>
+                    <a href="#calculator" class="price-btn free">{{ t('plan_1_btn') }}</a>
                 </div>
 
                 <!-- Premium PDF Plan -->
                 <div class="card pricing-card popular">
-                    <div class="popular-badge">সবচেয়ে জনপ্রিয়</div>
+                    <div class="popular-badge">{{ t('plan_2_badge') }}</div>
                     <div class="price-header">
-                        <h3 class="price-title">পূর্ণাঙ্গ প্রিমিয়াম রিপোর্ট</h3>
-                        <div class="price-val">₹499 / $8</div>
+                        <h3 class="price-title">{{ t('plan_2_title') }}</h3>
+                        <div class="price-val">{{ t('plan_2_price') }}</div>
                     </div>
                     <ul class="price-features">
-                        <li>পরবর্তী ৫ বছরের নিখুঁত ইভেন্ট টাইমিং</li>
-                        <li>বিচ্ছেদের সময় ও বিবাহ স্থায়িত্ব স্ক্যান</li>
-                        <li>লাল কিতাব ও বৈদিক প্রতিকার গাইড</li>
-                        <li>ডিজিটাল প্রিমিয়াম পিডিএফ ফর্ম্যাট</li>
+                        <li>{{ t('plan_2_f1') }}</li>
+                        <li>{{ t('plan_2_f2') }}</li>
+                        <li>{{ t('plan_2_f3') }}</li>
+                        <li>{{ t('plan_2_f4') }}</li>
                     </ul>
-                    <a href="#contact" class="price-btn premium">অর্ডার করুন</a>
+                    <a href="#contact" class="price-btn premium">{{ t('plan_2_btn') }}</a>
                 </div>
 
                 <!-- Custom Consultation -->
                 <div class="card pricing-card">
                     <div class="price-header">
-                        <h3 class="price-title">ব্যক্তিগত আলোচনা</h3>
-                        <div class="price-val">₹999 / $15</div>
+                        <h3 class="price-title">{{ t('plan_3_title') }}</h3>
+                        <div class="price-val">{{ t('plan_3_price') }}</div>
                     </div>
                     <ul class="price-features">
-                        <li>সরাসরি অডিও/ভিডিও কনসালটেশন</li>
-                        <li>৩টি নির্দিষ্ট প্রশ্নের পুঙ্খানুপুঙ্খ উত্তর</li>
-                        <li>কেপি হোরারি বা প্রশ্ন কুষ্ঠি বিশ্লেষণ</li>
-                        <li>উপযুক্ত রত্ন ও প্রতিকার সংক্রান্ত পরামর্শ</li>
+                        <li>{{ t('plan_3_f1') }}</li>
+                        <li>{{ t('plan_3_f2') }}</li>
+                        <li>{{ t('plan_3_f3') }}</li>
+                        <li>{{ t('plan_3_f4') }}</li>
                     </ul>
-                    <a href="#contact" class="price-btn consult">বুক করুন</a>
+                    <a href="#contact" class="price-btn consult">{{ t('plan_3_btn') }}</a>
                 </div>
             </div>
         </div>
@@ -239,15 +249,15 @@
     <section id="contact" class="section-padding">
         <div class="container">
             <div class="section-header">
-                <h2 class="section-title">যোগাযোগ ও পরামর্শ বুকিং (Contact & Booking)</h2>
-                <p class="section-subtitle">যেকোনো জিজ্ঞাসা, প্রিমিয়াম রিপোর্ট অর্ডার বা ব্যক্তিগত অ্যাপয়েন্টমেন্টের জন্য নিচের ফর্মটি পূরণ করুন।</p>
+                <h2 class="section-title">{{ t('contact_title') }}</h2>
+                <p class="section-subtitle">{{ t('contact_subtitle') }}</p>
             </div>
 
             <!-- Server Rendered Success Notification -->
             {% if request.args.get('contact_success') == 'true' %}
             <div class="alert-toast">
                 <span>✅</span>
-                <span>আপনার বার্তাটি সফলভাবে পাঠানো হয়েছে! জ্যোতিষী দেবাশীষ গুহ খুব শীঘ্রই আপনার সাথে যোগাযোগ করবেন।</span>
+                <span>{{ t('contact_success_msg') }}</span>
             </div>
             {% endif %}
 
@@ -257,7 +267,7 @@
                     <div class="contact-info-card">
                         <div class="contact-info-icon">✉️</div>
                         <div>
-                            <h4 class="contact-info-title">ইমেইল করুন (Email Address)</h4>
+                            <h4 class="contact-info-title">{{ t('info_email_title') }}</h4>
                             <p class="contact-info-desc">debasishguha@example.com</p>
                         </div>
                     </div>
@@ -265,8 +275,8 @@
                     <div class="contact-info-card">
                         <div class="contact-info-icon">💼</div>
                         <div>
-                            <h4 class="contact-info-title">ডেস্কটপ লাইসেন্স কুয়েরি</h4>
-                            <p class="contact-info-desc">অফলাইন ডেস্কটপ অ্যাপের ফুল লাইসেন্স কি-এর জন্য ইমেল মারফত যোগাযোগ করুন।</p>
+                            <h4 class="contact-info-title">{{ t('info_license_title') }}</h4>
+                            <p class="contact-info-desc">{{ t('info_license_desc') }}</p>
                         </div>
                     </div>
                 </div>
@@ -276,31 +286,31 @@
                     <form action="/contact" method="POST">
                         <div style="display: flex; flex-direction: column; gap: 1.25rem;">
                             <div class="form-group">
-                                <label for="contact_name">আপনার নাম (Your Name)</label>
-                                <input type="text" id="contact_name" name="contact_name" required placeholder="উদা: Debasish Guha">
+                                <label for="contact_name">{{ t('contact_name_label') }}</label>
+                                <input type="text" id="contact_name" name="contact_name" required placeholder="{{ t('name_placeholder') }}">
                             </div>
                             
                             <div class="form-group">
-                                <label for="contact_email">ইমেইল ঠিকানা (Email Address)</label>
+                                <label for="contact_email">{{ t('contact_email_label') }}</label>
                                 <input type="email" id="contact_email" name="contact_email" required placeholder="debasish@example.com">
                             </div>
                             
                             <div class="form-group">
-                                <label for="contact_subject">বিষয় (Subject)</label>
+                                <label for="contact_subject">{{ t('contact_subject_label') }}</label>
                                 <select id="contact_subject" name="contact_subject">
-                                    <option value="Premium Report Order">প্রিমিয়াম রিপোর্ট অর্ডার (Premium Report - ₹499)</option>
-                                    <option value="1-on-1 Consultation Booking">সরাসরি পরামর্শ বুকিং (1-on-1 Consultation - ₹999)</option>
-                                    <option value="Desktop Software License Inquiry">ডেস্কটপ সফটওয়্যার লাইসেন্স জিজ্ঞাসা</option>
-                                    <option value="General Query">সাধারণ জিজ্ঞাসা (General Query)</option>
+                                    <option value="Premium Report Order">{{ t('contact_sub_opt1') }}</option>
+                                    <option value="1-on-1 Consultation Booking">{{ t('contact_sub_opt2') }}</option>
+                                    <option value="Desktop Software License Inquiry">{{ t('contact_sub_opt3') }}</option>
+                                    <option value="General Query">{{ t('contact_sub_opt4') }}</option>
                                 </select>
                             </div>
                             
                             <div class="form-group">
-                                <label for="contact_message">বার্তা / জন্ম তথ্য (Message / Birth Info)</label>
-                                <textarea id="contact_message" name="contact_message" rows="5" required placeholder="আপনার জন্ম বিবরণ বা প্রশ্নের বিবরণ এখানে লিখুন..."></textarea>
+                                <label for="contact_message">{{ t('contact_msg_label') }}</label>
+                                <textarea id="contact_message" name="contact_message" rows="5" required placeholder="{{ t('contact_msg_placeholder') }}"></textarea>
                             </div>
                             
-                            <button type="submit" class="btn-primary" style="width: 100%; border: none;">বার্তা পাঠান (Send Message)</button>
+                            <button type="submit" class="btn-primary" style="width: 100%; border: none;">{{ t('contact_btn_send') }}</button>
                         </div>
                     </form>
                 </div>
@@ -312,16 +322,16 @@
     <footer class="site-footer">
         <div class="container">
             <div class="footer-logo">
-                <span class="logo-text">DIVYA DRISHTI</span><br>
+                <span class="logo-text">{{ t('app_title') }}</span><br>
                 <span class="logo-sub">KP Vedic Astrology Specialist</span>
             </div>
             
             <ul class="footer-links">
-                <li><a href="#">Home</a></li>
-                <li><a href="#services">Services</a></li>
-                <li><a href="#calculator">Calculator</a></li>
-                <li><a href="#pricing">Pricing</a></li>
-                <li><a href="#contact">Contact</a></li>
+                <li><a href="#">{{ t('nav_home') }}</a></li>
+                <li><a href="#services">{{ t('nav_services') }}</a></li>
+                <li><a href="#calculator">{{ t('nav_calculator') }}</a></li>
+                <li><a href="#pricing">{{ t('nav_pricing') }}</a></li>
+                <li><a href="#contact">{{ t('nav_contact') }}</a></li>
             </ul>
             
             <p class="footer-copy">
@@ -333,7 +343,7 @@
         </div>
     </footer>
 
-    <!-- JavaScript to handle City Autocomplete -->
+    <!-- JavaScript to handle City Autocomplete and Language Change -->
     <script>
         function fillCity(cityName, lat, lon, tz) {
             document.getElementById('latitude').value = lat;
@@ -351,6 +361,12 @@
                     el.style.boxShadow = 'none';
                 }, 1000);
             });
+        }
+
+        function changeLanguage(lang) {
+            const url = new URL(window.location.href);
+            url.searchParams.set('lang', lang);
+            window.location.href = url.toString();
         }
     </script>
 </body>

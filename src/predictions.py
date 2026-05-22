@@ -119,7 +119,7 @@ class KPPredictor:
     # ==========================================================================
     # 🎭 GENERAL PREDICTION (BUTTONS)
     # ==========================================================================
-    def run_general_prediction(self, button_name, planets, cusps, calc_engine):
+    def run_general_prediction(self, button_name, planets, cusps, calc_engine, lang=None):
         """
         Input: Button Name (e.g., 'WHO_AM_I') passed from main.py/divya_ai.py
         Output: Full poetic report string.
@@ -153,7 +153,7 @@ class KPPredictor:
             promise_strength = self._check_promise(rule["pos"], rule["neg"], cusps, calc_engine)
             
             # Format Output (Poetic, No Logic shown to user)
-            result_text = self._poetic_interpretation(topic, promise_strength, rule["karaka"])
+            result_text = self._poetic_interpretation(topic, promise_strength, rule["karaka"], lang=lang)
             
             report += f"🔮 {topic.upper()}:\n{result_text}\n"
             report += f"[INTERACTION: Accept or Deny this influence?]\n" # Logic trigger for UI interactions
@@ -284,29 +284,23 @@ class KPPredictor:
         """Fallback promise check when chart_data not available."""
         return random.randint(40, 95)
 
-    def _poetic_interpretation(self, topic, score, karaka):
+    def _poetic_interpretation(self, topic, score, karaka, lang=None):
         """
         Converts a raw score into a mystical sentence.
         """
+        from .translations import t
+        translated_karaka = t(f"p_{karaka}", lang=lang)
+        
         if score > 80:
-            templates = [
-                f"The cosmic gates are wide open. {karaka} smiles benevolently upon this aspect.",
-                "A powerful destiny is written here, strong and undeniable.",
-                "Fortune favors you greatly in this realm; the energy flows without obstruction."
-            ]
+            keys = ["pred_strong_1", "pred_strong_2", "pred_strong_3"]
         elif score > 50:
-            templates = [
-                f"The path is visible but requires effort. {karaka} watches, waiting for your action.",
-                "Success is promised, though it may come with lessons to be learned.",
-                "A moderate influence. With free will and persistence, this fruit will ripen."
-            ]
+            keys = ["pred_moderate_1", "pred_moderate_2", "pred_moderate_3"]
         else:
-            templates = [
-                f"The mists of karma obscure this path. {karaka} suggests focusing elsewhere.",
-                "Challenges are indicated. Use this knowledge to prepare, not to fear.",
-                "The energy here is quiet. Do not force the river to flow upstream."
-            ]
-        return random.choice(templates)
+            keys = ["pred_weak_1", "pred_weak_2", "pred_weak_3"]
+            
+        selected_key = random.choice(keys)
+        return t(selected_key, lang=lang, karaka=translated_karaka)
+
 
     def _scan_dasa_full(self, target_houses, planets, calc_engine, birth_date):
         """

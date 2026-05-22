@@ -25,7 +25,7 @@ if PROD_PATH not in sys.path:
     sys.path.insert(0, os.path.join(PROD_PATH, "src"))
 
 import datetime
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for, session
 
 # Guarded imports from production codebase
 try:
@@ -50,6 +50,93 @@ if ENGINE_LOADED:
 
 
 app = Flask(__name__)
+app.secret_key = "divya_drishti_secret_key_987654"
+
+def translate_planet(name, lang=None):
+    clean_name = str(name).strip()
+    key = f"p_{clean_name}"
+    from src.translations import t
+    res = t(key, lang=lang)
+    return res if res != key else name
+
+def translate_sign_name(name, lang=None):
+    clean_name = str(name).strip()
+    from src.translations import translate_sign
+    return translate_sign(clean_name, lang=lang)
+
+def translate_nakshatra(name, lang=None):
+    clean_name = str(name).strip().replace(" ", "")
+    key = f"nak_{clean_name}"
+    from src.translations import t
+    res = t(key, lang=lang)
+    return res if res != key else name
+
+def translate_aspect(name, lang=None):
+    clean_name = str(name).strip().replace(" ", "_")
+    mapping = {
+        "Conjunction": "asp_Conjunction",
+        "Sextile": "asp_Sextile",
+        "Square": "asp_Square",
+        "Trine": "asp_Trine",
+        "Opposition": "asp_Opposition",
+        "KP (P-P)": "asp_KP_PP",
+        "KP (P-H)": "asp_KP_PH",
+        "Vedic (P-P)": "asp_Vedic_PP",
+        "Vedic (P-H)": "asp_Vedic_PH",
+        "Casts Drishti": "asp_Casts_Drishti",
+        "7th House Drishti": "asp_7th_House_Drishti",
+        "4th House Drishti": "asp_4th_House_Drishti",
+        "8th House Drishti": "asp_8th_House_Drishti",
+        "3rd House Drishti": "asp_3rd_House_Drishti",
+        "10th House Drishti": "asp_10th_House_Drishti",
+        "5th House Drishti": "asp_5th_House_Drishti",
+        "9th House Drishti": "asp_9th_House_Drishti",
+        "Benefic": "qual_Benefic",
+        "Malefic": "qual_Malefic",
+        "Neutral": "qual_Neutral"
+    }
+    key = mapping.get(name) or mapping.get(clean_name)
+    if key:
+        from src.translations import t
+        return t(key, lang=lang)
+    return name
+
+@app.context_processor
+def inject_translations():
+    from src.translations import t, convert_number
+    lang = request.args.get('lang')
+    if lang in ['en', 'hi', 'bn']:
+        session['lang'] = lang
+    else:
+        lang = session.get('lang', 'en')
+    
+    def translate_helper(key, **kwargs):
+        return t(key, lang=lang, **kwargs)
+    
+    def number_helper(val):
+        return convert_number(val, lang=lang)
+    
+    def planet_helper(name):
+        return translate_planet(name, lang=lang)
+    
+    def sign_helper(name):
+        return translate_sign_name(name, lang=lang)
+    
+    def nakshatra_helper(name):
+        return translate_nakshatra(name, lang=lang)
+    
+    def aspect_helper(name):
+        return translate_aspect(name, lang=lang)
+    
+    return dict(
+        current_lang=lang,
+        t=translate_helper,
+        n=number_helper,
+        tp=planet_helper,
+        ts=sign_helper,
+        tn=nakshatra_helper,
+        ta=aspect_helper
+    )
 
 @app.route('/')
 def index():
@@ -57,20 +144,46 @@ def index():
         return f"<h3>Failed to load astrology engine from {PROD_PATH}</h3><p>Error: {_IMPORT_ERROR}</p>"
     return render_template('index.html')
 
-@app.route('/calculate', methods=['POST'])
+@app.route('/calculate', methods=['GET', 'POST'])
 def calculate():
-    name = request.form.get('name', 'Anonymous')
-    birth_date = request.form.get('birth_date', '')
-    birth_time = request.form.get('birth_time', '')
-    
-    try:
-        lat = float(request.form.get('latitude', '0.0'))
-        lon = float(request.form.get('longitude', '0.0'))
-    except ValueError:
-        lat, lon = 0.0, 0.0
+    if not ENGINE_LOADED:
+        return f"<h3>Failed to load astrology engine</h3>"
         
-    tz = request.form.get('timezone', '+05:30')
+    lang = session.get('lang', 'en')
     
+    if request.method == 'POST':
+        name = request.form.get('name', 'Anonymous')
+        birth_date = request.form.get('birth_date', '')
+        birth_time = request.form.get('birth_time', '')
+        try:
+            lat = float(request.form.get('latitude', '0.0'))
+            lon = float(request.form.get('longitude', '0.0'))
+        except ValueError:
+            lat, lon = 0.0, 0.0
+        tz = request.form.get('timezone', '+05:30')
+        
+        # Save to session
+        session['last_calc_data'] = {
+            'name': name,
+            'birth_date': birth_date,
+            'birth_time': birth_time,
+            'latitude': lat,
+            'longitude': lon,
+            'timezone': tz
+        }
+    else:
+        # GET request: load from session
+        calc_data = session.get('last_calc_data')
+        if not calc_data:
+            return redirect(url_for('index'))
+            
+        name = calc_data.get('name', 'Anonymous')
+        birth_date = calc_data.get('birth_date', '')
+        birth_time = calc_data.get('birth_time', '')
+        lat = calc_data.get('latitude', 0.0)
+        lon = calc_data.get('longitude', 0.0)
+        tz = calc_data.get('timezone', '+05:30')
+
     # Use production ChartEngine to perform calculations
     engine = ChartEngine()
     try:
@@ -82,7 +195,7 @@ def calculate():
     # Inject metadata for Titanium Forensic Engines
     exported['metadata'] = {
         'dob': birth_date,
-        'language': 'en'
+        'language': lang
     }
     
     # Run predictions dynamically
@@ -112,7 +225,7 @@ def calculate():
             rule = KP_RULES.get(topic)
             if rule:
                 promise_strength = predictor._check_promise(rule["pos"], rule["neg"], p1["cusps"], engine.calc)
-                result_text = predictor._poetic_interpretation(topic, promise_strength, rule["karaka"])
+                result_text = predictor._poetic_interpretation(topic, promise_strength, rule["karaka"], lang=lang)
                 predictions_results[cat_name][topic] = result_text
 
     # Run Marriage and Divorce Forensic calculations

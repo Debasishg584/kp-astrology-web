@@ -791,7 +791,304 @@ T = {
     "report_score": {"en": "Score", "hi": "स्कोर", "bn": "স্কোর"},
     "report_forensic_status": {"en": "Forensic Status", "hi": "फोरेंसिक स्थिति", "bn": "ফরেনসিক অবস্থা"},
     "report_confidence": {"en": "Confidence: {value}%", "hi": "विश्वास: {value}%", "bn": "আত্মবিশ্বাস: {value}%"},
+
+    # ==========================================================================
+    # LANDING PAGE & NAVIGATION KEYS
+    # ==========================================================================
+    "nav_home": {"en": "Home", "hi": "होम", "bn": "হোম"},
+    "nav_services": {"en": "Services", "hi": "सेवाएं", "bn": "সেবাসমূহ"},
+    "nav_calculator": {"en": "Calculator", "hi": "कैलकुलेटर", "bn": "ক্যালকুলেটর"},
+    "nav_about": {"en": "About", "hi": "परिचय", "bn": "পরিচিতি"},
+    "nav_pricing": {"en": "Pricing", "hi": "मूल्य निर्धारण", "bn": "মূল্য তালিকা"},
+    "nav_contact": {"en": "Contact", "hi": "संपर्क", "bn": "যোগাযোগ"},
+    "nav_free_chart": {"en": "Free Chart", "hi": "निःशुल्क कुंडली", "bn": "ফ্রি চার্ট"},
+    "nav_report": {"en": "Astrology Report", "hi": "ज्योतिष रिपोर्ट", "bn": "কোষ্ঠী বিবরণী"},
+
+    "hero_tag": {"en": "Vedic Forensics & KP Astrological Science", "hi": "वैदिक फोरेंसिक्स और केपी ज्योतिषीय विज्ञान", "bn": "বৈদিক ফরেনসিক ও কেপি জ্যোতিষ বিজ্ঞান"},
+    "hero_title_1": {"en": "Discover Your Destiny With", "hi": "अपने भाग्य को जानें", "bn": "আপনার ভাগ্য জানুন"},
+    "hero_title_2": {"en": "Mathematical Precision", "hi": "गणितीय सटीकता के साथ", "bn": "গাণিতিক নির্ভুলতার সাথে"},
+    "hero_subtitle": {
+        "en": "Discover the true guidance of your past, present, and future through the precise mathematical analysis of the advanced Krishnamurti Paddhati (KP System) and Vedic zodiac.",
+        "hi": "उन्नत कृष्णमूर्ति पद्धति (केपी सिस्टम) और वैदिक राशि चक्र के सटीक गणितीय विश्लेषण के माध्यम से अपने अतीत, वर्तमान और भविष्य के सच्चे मार्गदर्शन की खोज करें।",
+        "bn": "উন্নত কৃষ্ণমূর্তি পদ্ধতি (KP System) ও বৈদিক রাশিচক্রের নিখুঁত গাণিতিক বিশ্লেষণের মাধ্যমে আপনার জীবনের অতীত, বর্তমান এবং ভবিষ্যতের সঠিক দিকনির্দেশনা জানুন।"
+    },
+    "hero_btn_calc": {"en": "Calculate Chart", "hi": "कुंडली गणना", "bn": "জন্মাঙ্গ গণনা (Calculate Chart)"},
+    "hero_btn_consult": {"en": "Consultation", "hi": "परामर्श लें", "bn": "পরামর্শ নিন (Consultation)"},
+
+    "services_title": {"en": "Our Services", "hi": "हमारी सेवाएं", "bn": "আমাদের সেবাসমূহ (Astrology Services)"},
+    "services_subtitle": {
+        "en": "Get answers to every important question of your life with the combination of mathematical accuracy and scientific astrology.",
+        "hi": "गणितीय सटीकता और वैज्ञानिक ज्योतिष के संयोजन के साथ अपने जीवन के हर महत्वपूर्ण प्रश्न का उत्तर प्राप्त करें।",
+        "bn": "গাণিতিক নির্ভুলতা এবং বৈজ্ঞানিক জ্যোতিষতত্ত্বের সমন্বয়ে আপনার জীবনের প্রতিটি গুরুত্বপূর্ণ প্রশ্নের উত্তর লাভ করুন।"
+    },
+    "service_1_title": {"en": "Marriage Forensics", "hi": "विवाह विश्लेषण", "bn": "বিবাহ ও যোটক বিচার (Marriage Forensics)"},
+    "service_1_desc": {
+        "en": "Detailed KP Sub-Lord based analysis and remedies regarding timing of marriage, marital happiness, and possibility of legal issues or separation.",
+        "hi": "विवाह का सही समय, दांपत्य सुख और कानूनी समस्याओं या अलगाव की संभावना के बारे में विस्तृत केपी उप-स्वामी (Sub-Lord) आधारित विश्लेषण और उपाय।",
+        "bn": " বিবাহের সঠিক সময় নির্ধারণ, দাম্পত্য সুখ-শান্তির প্রতিশ্রুতি এবং আইনি জটিলতা বা বিচ্ছেদের সম্ভাবনা নিয়ে বিস্তারিত কেপি সাব-লর্ড ভিত্তিক বিশ্লেষণ ও প্রতিকার।"
+    },
+    "service_2_title": {"en": "Career & Wealth", "hi": "करियर और धन", "bn": "জীবিকা ও অর্থযোগ (Career & Wealth)"},
+    "service_2_desc": {
+        "en": "Job or business? Timing of promotion, career obstacles, and precise wealth accumulation analysis based on birth chart.",
+        "hi": "नौकरी या व्यवसाय? पदोन्नति का सही समय, करियर की बाधाएं, और जन्म कुंडली के आधार पर सटीक धन संचय विश्लेषण।",
+        "bn": "চাকরি না ব্যবসা? পদোন্নতির সঠিক সময় নির্ধারণ, কর্মক্ষেত্রে বাধা এবং আর্থিক অগ্রগতির সঠিক কোষ্ঠী বিচার ও রাশিচক্রের বিশ্লেষণ।"
+    },
+    "service_3_title": {"en": "Wisdom & Skills", "hi": "शिक्षा और कौशल", "bn": "শিক্ষা ও মেধা বিচার (Wisdom & Skills)"},
+    "service_3_desc": {
+        "en": "Primary and higher education success, opportunities for foreign study, and guidance for your child's future oriented education.",
+        "hi": "प्राथमिक और उच्च शिक्षा में सफलता, विदेश में अध्ययन की संभावना, और आपके बच्चे की भविष्योन्मुखी शिक्षा के लिए मार्गदर्शन।",
+        "bn": "প্রাথমিক ও উচ্চ শিক্ষার যোগ, বিদেশের বিশ্ববিদ্যালয়ে পড়াশোনার সম্ভাবনা এবং সন্তানের ভবিষ্যৎ কর্মমুখী শিক্ষার দিকনির্দেশনা।"
+    },
+    "service_4_title": {"en": "Karmic Remedies", "hi": "कर्मफल और उपाय", "bn": "কর্মফল ও প্রতিকার (Karmic Remedies)"},
+    "service_4_desc": {
+        "en": "Special KP remedies including Lal Kitab, Vedic mantras, and strengthening weak planets to counter negative influences in your life.",
+        "hi": "लाल किताब, वैदिक मंत्र और आपके जीवन में नकारात्मक प्रभावों को दूर करने के लिए कमजोर ग्रहों को मजबूत करने के विशेष केपी उपाय।",
+        "bn": "লাল কিতাব, বৈদিক মন্ত্র, কুষ্টির দুর্বল গ্রহসমূহকে সবল করার বিশেষ কেপি প্রতিকার যা আপনার জীবনের নেতিবাচক প্রভাবকে প্রতিহত করবে।"
+    },
+
+    "calc_title": {"en": "Free Kundli Calculator", "hi": "निःशुल्क कुंडली कैलकुलेटर", "bn": "বিনামূল্যে কুষ্ঠি গণনা (Free Kundli Calculator)"},
+    "calc_subtitle": {
+        "en": "Enter your birth details and generate an instant, highly accurate KP Predictive Report.",
+        "hi": "अपने जन्म का विवरण दर्ज करें और तुरंत एक अत्यंत सटीक केपी भविष्यवाणिया रिपोर्ट प्राप्त करें।",
+        "bn": "আপনার জন্ম বিবরণী প্রদান করুন এবং অবিলম্বে একটি নিখুঁত জ্যোতিষীয় গণনাপত্র (KP Predictive Report) তৈরি করুন।"
+    },
+    "form_title": {"en": "Enter Birth Details", "hi": "जन्म विवरण भरें", "bn": "জন্মের বিবরণ পূরণ করুন (Enter Birth Details)"},
+    "quick_city": {"en": "Quick City Autocomplete:", "hi": "त्वरित शहर चयन:", "bn": "দ্রুত স্থান নির্বাচন (Quick City Autocomplete):"},
+    "name_label": {"en": "Full Name", "hi": "पूरा नाम", "bn": "আপনার নাম (Full Name)"},
+    "name_placeholder": {"en": "e.g. Debasish Guha", "hi": "जैसे: देबाशीष गुहा", "bn": "উদা: Debasish Guha"},
+    "dob_label": {"en": "Birth Date (DD-MM-YYYY)", "hi": "जन्म तिथि (दिन-माह-वर्ष)", "bn": "জন্ম তারিখ (Birth Date - DD-MM-YYYY)"},
+    "tob_label": {"en": "Birth Time (HH:MM:SS)", "hi": "जन्म का समय (घंटा:मिनट:सेकंड)", "bn": "জন্ম সময় (Birth Time - HH:MM:SS)"},
+    "lat_label_full": {"en": "Latitude (Decimal)", "hi": "अक्षांश (दशमलव)", "bn": "অক্ষাংশ (Latitude - Decimal)"},
+    "lon_label_full": {"en": "Longitude (Decimal)", "hi": "देशांतर (दशमलव)", "bn": "দ্রাঘিমাংশ (Longitude - Decimal)"},
+    "tz_label_full": {"en": "Timezone Offset", "hi": "समय क्षेत्र (Timezone Offset)", "bn": "টাইমজোন (Timezone Offset)"},
+    "btn_calc_submit": {"en": "Generate KP Chart", "hi": "कुंडली बनाएं", "bn": "জন্মাঙ্গ কুষ্ঠি তৈরি করুন (Generate KP Chart)"},
+
+    "about_intro": {"en": "Introduction", "hi": "परिचय", "bn": "পরিচিতি (Introduction)"},
+    "about_title": {"en": "Astrologer Debasish Guha", "hi": "ज्योतिषी देबाशीष गुहा", "bn": "জ্যোতিষী দেবাশীষ গুহ (Astrologer Debasish Guha)"},
+    "about_p1": {
+        "en": "Welcome! I am Debasish Guha, and for many years I have been successfully working with the Krishnamurti Paddhati (KP System), the most modern and scientifically proven branch of mathematical astrology.",
+        "hi": "स्वागत है! मैं देबाशीष गुहा हूँ, और कई वर्षों से मैं गणितीय ज्योतिष की सबसे आधुनिक और वैज्ञानिक रूप से प्रमाणित शाखा कृष्णमूर्ति पद्धति (केपी सिस्टम) के साथ सफलतापूर्वक काम कर रहा हूँ।",
+        "bn": "স্বাগতম! আমি দেবাশীষ গুহ, বিগত বহু বছর ধরে গাণিতিক জ্যোতিষশাস্ত্রের সবচেয়ে আধুনিক ও প্রামাণ্য শাখা কৃষ্ণমূর্তি পদ্ধতি (KP System) নিয়ে সফলতার সাথে কাজ করছি।"
+    },
+    "about_p2": {
+        "en": "My goal is to present astrology as an accurate mathematical science, moving away from common superstitions and vague assumptions. Based on the mutual relationships of planetary positions, Star Lords, and Sub-Lords, my specialty is determining the precise timings of major life events.",
+        "hi": "मेरा लक्ष्य ज्योतिष को एक सटीक गणितीय विज्ञान के रूप में प्रस्तुत करना है, जो सामान्य अंधविश्वासों और अस्पष्ट अनुमानों से दूर हो। ग्रहों की स्थिति, नक्षत्र स्वामियों और उप-स्वामियों के पारस्परिक संबंधों के आधार पर, जीवन की प्रमुख घटनाओं के सटीक समय का निर्धारण करना ही मेरी विशेषता है।",
+        "bn": "আমার লক্ষ্য সাধারণ কুসংস্কার ও ভাসাভাসা অনুমানের বাইরে গিয়ে জ্যোতিষশাস্ত্রকে একটি নির্ভুল গাণিতিক বিজ্ঞান হিসেবে মানুষের সামনে তুলে ধরা। গ্রহের অবস্থান, নক্ষত্রাধিপতি (Star Lord) এবং উপ-অধিপতির (Sub Lord) পারস্পরিক সম্পর্কের উপর ভিত্তি করে জীবনের গুরুত্বপূর্ণ বিষয়ের নিখুঁত সমকাল নির্ণয় করাই আমার বিশেষত্ব।"
+    },
+    "about_p3": {
+        "en": "I provide services through both online and offline mediums. This website has been created to make it extremely easy for anyone to calculate their accurate cosmic birth chart from the comfort of their home for free.",
+        "hi": "मैं ऑनलाइन और ऑफलाइन दोनों माध्यमों से सेवाएं प्रदान करता हूं। यह वेबसाइट इसलिए बनाई गई है ताकि कोई भी अपने घर बैठे ही अपनी सटीक कुंडली की निःशुल्क गणना कर सके।",
+        "bn": "অনলাইন এবং অফলাইন উভয় মাধ্যমেই আমি সেবা প্রদান করে থাকি। আমার এই ওয়েবসাইটটি তৈরি করা হয়েছে যাতে অতি সহজে যেকোনো মানুষ নিজ ঘরে বসেই তাদের জন্মের সঠিক মহাজাগতিক চিত্রটি বিনামূল্যে গণনা করতে পারে।"
+    },
+
+    "pricing_title": {"en": "Pricing Plans", "hi": "शुल्क योजनाएं", "bn": "পরামর্শ ও সেবার মূল্য তালিকা (Pricing Plans)"},
+    "pricing_subtitle": {"en": "Choose the right astrology service according to your needs.", "hi": "अपनी आवश्यकता के अनुसार सही ज्योतिष सेवा चुनें।", "bn": "আপনার প্রয়োজন অনুযায়ী সঠিক জ্যোতিষ সেবাটি বেছে নিন।"},
+    "plan_1_title": {"en": "Free Chart", "hi": "निःशुल्क कुंडली", "bn": "ফ্রি চার্ট গণনা"},
+    "plan_1_price": {"en": "₹0 / Free", "hi": "₹0 / निःशुल्क", "bn": "₹0 / Free"},
+    "plan_1_f1": {"en": "Basic Kundli Charts (Rasi & Bhava)", "hi": "बुनियादी कुंडली चार्ट (राशि और भाव)", "bn": "সাধারণ কুষ্ঠি চার্ট (Rasi & Bhava)"},
+    "plan_1_f2": {"en": "Planetary and house longitude details", "hi": "ग्रहों और भावों की सही डिग्री का विवरण", "bn": "গ্রহ ও ভাবের সঠিক ডিগ্রি বিবরণ"},
+    "plan_1_f3": {"en": "KP planetary and house significators", "hi": "केपी ग्रह और भाव संकेतक", "bn": "কেপি গ্রহ ও ভাব নির্দেশক ছক"},
+    "plan_1_f4": {"en": "Automated general predictions", "hi": "स्वचालित सामान्य भविष्यफल", "bn": "স্বয়ংক্রিয় এআই সাধারণ পূর্বাভাস"},
+    "plan_1_btn": {"en": "Calculate", "hi": "गणना करें", "bn": "গণনা করুন"},
+    
+    "plan_2_title": {"en": "Premium PDF Report", "hi": "प्रीमियम पीडीएफ रिपोर्ट", "bn": "পূর্ণাঙ্গ প্রিমিয়াম রিপোর্ট"},
+    "plan_2_price": {"en": "₹499 / $8", "hi": "₹499 / $8", "bn": "₹499 / $8"},
+    "plan_2_badge": {"en": "MOST POPULAR", "hi": "सबसे लोकप्रिय", "bn": "সবচেয়ে জনপ্রিয়"},
+    "plan_2_f1": {"en": "Precise event timing for next 5 years", "hi": "अगले 5 वर्षों के लिए सटीक घटना समय", "bn": "পরবর্তী ৫ বছরের নিখুঁত ইভেন্ট টাইমিং"},
+    "plan_2_f2": {"en": "Marriage stability & separation scan", "hi": "विवाह स्थिरता और अलगाव विश्लेषण", "bn": "বিচ্ছেদের সময় ও বিবাহ স্থায়িত্ব স্ক্যান"},
+    "plan_2_f3": {"en": "Lal Kitab & Vedic remedies guide", "hi": "लाल किताब और वैदिक उपाय गाइड", "bn": "লাল কিতাব ও বৈদিক প্রতিকার গাইড"},
+    "plan_2_f4": {"en": "Digital Premium PDF format", "hi": "डिजिटल प्रीमियम पीडीएफ प्रारूप", "bn": "ডিজিটাল প্রিমিয়াম পিডিএফ ফর্ম্যাট"},
+    "plan_2_btn": {"en": "Order Now", "hi": "ऑर्डर करें", "bn": "অর্ডার করুন"},
+
+    "plan_3_title": {"en": "Personal Consultation", "hi": "व्यक्तिगत परामर्श", "bn": "ব্যক্তিগত আলোচনা"},
+    "plan_3_price": {"en": "₹999 / $15", "hi": "₹999 / $15", "bn": "₹999 / $15"},
+    "plan_3_f1": {"en": "Direct audio/video consultation", "hi": "सीधा ऑडियो/वीडियो परामर्श", "bn": "সরাসরি অডিও/ভিডিও কনসালটেশন"},
+    "plan_3_f2": {"en": "Detailed answers to 3 specific questions", "hi": "3 विशिष्ट प्रश्नों के विस्तृत उत्तर", "bn": "৩টি নির্দিষ্ট প্রশ্নের পুঙ্খানুপুঙ্খ উত্তর"},
+    "plan_3_f3": {"en": "KP Horary/Prashna Kundli analysis", "hi": "केपी प्रश्न कुंडली विश्लेषण", "bn": "কেপি হোরারি বা প্রশ্ন কুষ্ঠি বিশ্লেষণ"},
+    "plan_3_f4": {"en": "Guidance on suitable gems & remedies", "hi": "उपयुक्त रत्न और उपायों पर मार्गदर्शन", "bn": "উপযুক্ত রত্ন ও প্রতিকার সংক্রান্ত পরামর্শ"},
+    "plan_3_btn": {"en": "Book Now", "hi": "बुक करें", "bn": "বুক করুন"},
+
+    "contact_title": {"en": "Contact & Booking", "hi": "संपर्क और बुकिंग", "bn": "যোগাযোগ ও পরামর্শ বুকিং (Contact & Booking)"},
+    "contact_subtitle": {"en": "Fill the form below for any queries, premium report orders, or personal appointments.", "hi": "किसी भी प्रश्न, प्रीमियम रिपोर्ट ऑर्डर, या व्यक्तिगत नियुक्तियों के लिए नीचे दिए गए फॉर्म को भरें।", "bn": "যেকোনো জিজ্ঞাসা, প্রিমিয়াম রিপোর্ট অর্ডার বা ব্যক্তিগত অ্যাপয়েন্টমেন্টের জন্য নিচের ফর্মটি পূরণ করুন।"},
+    "contact_success_msg": {"en": "Your message has been sent successfully! Astrologer Debasish Guha will contact you soon.", "hi": "आपका संदेश सफलतापूर्वक भेज दिया गया है! ज्योतिषी देबाशीष गुहा जल्द ही आपसे संपर्क करेंगे।", "bn": "আপনার বার্তাটি সফলভাবে পাঠানো হয়েছে! জ্যোতিষী দেবাশীষ গুহ খুব শীঘ্রই আপনার সাথে যোগাযোগ করবেন।"},
+    "contact_name_label": {"en": "Your Name", "hi": "आपका नाम", "bn": "আপনার নাম (Your Name)"},
+    "contact_email_label": {"en": "Email Address", "hi": "ईमेल पता", "bn": "ইমেইল ঠিকানা (Email Address)"},
+    "contact_subject_label": {"en": "Subject", "hi": "विषय", "bn": "বিষয় (Subject)"},
+    "contact_sub_opt1": {"en": "Premium Report Order (Premium Report - ₹499)", "hi": "प्रीमियम रिपोर्ट ऑर्डर (Premium Report - ₹499)", "bn": "প্রিমিয়াম রিপোর্ট অর্ডার (Premium Report - ₹499)"},
+    "contact_sub_opt2": {"en": "1-on-1 Consultation Booking (1-on-1 Consultation - ₹999)", "hi": "सीधे परामर्श बुकिंग (1-on-1 Consultation - ₹999)", "bn": "সরাসরি পরামর্শ বুকিং (1-on-1 Consultation - ₹৯৯৯)"},
+    "contact_sub_opt3": {"en": "Desktop Software License Inquiry", "hi": "डेस्कटॉप सॉफ्टवेयर लाइसेंस पूछताछ", "bn": "ডেস্কটপ সফটওয়্যার লাইসেন্স জিজ্ঞাসা"},
+    "contact_sub_opt4": {"en": "General Query", "hi": "सामान्य पूछताछ", "bn": "সাধারণ জিজ্ঞাসা (General Query)"},
+    "contact_msg_label": {"en": "Message / Birth Info", "hi": "संदेश / जन्म विवरण", "bn": "বার্তা / জন্ম তথ্য (Message / Birth Info)"},
+    "contact_msg_placeholder": {"en": "Enter your birth details or query here...", "hi": "अपने जन्म का विवरण या प्रश्न यहाँ दर्ज करें...", "bn": "আপনার জন্ম বিবরণ বা প্রশ্নের বিবরণ এখানে লিখুন..."},
+    "contact_btn_send": {"en": "Send Message", "hi": "संदेश भेजें", "bn": "বার্তা পাঠান (Send Message)"},
+    "info_email_title": {"en": "Email Address", "hi": "ईमेल करें", "bn": "ইমেইল করুন (Email Address)"},
+    "info_license_title": {"en": "Desktop License Query", "hi": "डेस्कटॉप लाइसेंस पूछताछ", "bn": "ডেস্কটপ লাইসেন্স কুয়েরি"},
+    "info_license_desc": {"en": "Contact via email for offline desktop app full license key.", "hi": "ऑफ़लाइन डेस्कटॉप ऐप की पूर्ण लाइसेंस कुंजी के लिए ईमेल के माध्यम से संपर्क करें।", "bn": "অফলাইন ডেস্কটপ অ্যাপের ফুল লাইসেন্স কি-এর জন্য ইমেল মারফত যোগাযোগ করুন।"},
+
+    # ==========================================================================
+    # REPORT PAGE TRANSLATIONS
+    # ==========================================================================
+    "report_back_btn": {"en": "← Calculate Another Chart", "hi": "← दूसरी कुंडली की गणना करें", "bn": "← অন্য জন্মাঙ্গ গণনা করুন"},
+    "report_birth_summary": {"en": "Birth Information Summary", "hi": "जन्म विवरण सारांश", "bn": "জন্ম বিবরণী সারাংশ"},
+    "report_visual_kundli": {"en": "Visual Birth Chart (Kundli)", "hi": "जन्म कुंडली चार्ट (Kundli)", "bn": "দৃশ্যমান জন্ম কুষ্ঠি (Kundli)"},
+    "report_north_diamond": {"en": "North Indian (Diamond)", "hi": "उत्तर भारतीय (डायमंड)", "bn": "উত্তর ভারতীয় (ডায়মন্ড)"},
+    "report_south_box": {"en": "South Indian (Box)", "hi": "दक्षिण भारतीय (बॉक्स)", "bn": "দক্ষিণ ভারতীয় (বক্স)"},
+    "report_rasi_chart": {"en": "Rasi Chart (D1)", "hi": "राशि चार्ट (D1)", "bn": "রাশি চক্র (D1)"},
+    "report_bhava_chart": {"en": "Bhava Chalit", "hi": "भाव चलित", "bn": "ভাব চলিত"},
+    "report_planet_pos": {"en": "Planetary Positions & Star Lords", "hi": "ग्रह स्थिति और नक्षत्र स्वामी", "bn": "গ্রহ অবস্থান ও নক্ষত্র স্বামী"},
+    "report_house_cusp": {"en": "House Cusps (Placidus Houses)", "hi": "भाव स्पष्ट (Placidus Houses)", "bn": "ভাব স্পষ্ট (Placidus Houses)"},
+    "report_planet_sig": {"en": "KP Planetary Significators", "hi": "केपी ग्रह द्योतक (Planetary Significators)", "bn": "কেপি গ্রহ দ্যোতক (Planetary Significators)"},
+    "report_source_row": {"en": "Source Row (Occupies & Owns)", "hi": "स्रोत पंक्ति (स्थित और स्वामित्व)", "bn": "উৎস শ্রেণী (অবস্থিত ও অধিপতি)"},
+    "report_result_row": {"en": "Result Row (Star Lord & Sub Lord CSL connections)", "hi": "परिणाम पंक्ति (नक्षत्र और उप-स्वामी संबंध)", "bn": "ফলাফল শ্রেণী (নক্ষত্র ও উপ-অধিপতি সংযোগ)"},
+    "report_narrative_title": {"en": "AI & KP Forensic Narrative Report", "hi": "एआई और केपी फोरेंसिक रिपोर्ट", "bn": "এআই ও কেপি ফরেনসিক বিবরণী"},
+    "report_tab_purpose": {"en": "Dharma & Purpose", "hi": "धर्म और उद्देश्य", "bn": "ধর্ম ও উদ্দেশ্য"},
+    "report_tab_family": {"en": "Family & Relations", "hi": "परिवार और संबंध", "bn": "পরিবার ও সম্পর্ক"},
+    "report_tab_education": {"en": "Wisdom & Skills", "hi": "ज्ञान और कौशल", "bn": "জ্ঞান ও দক্ষতা"},
+    "report_tab_career": {"en": "Career & Wealth", "hi": "करियर और धन", "bn": "পেশা ও সম্পদ"},
+    "report_tab_marriage": {"en": "Marriage Stability", "hi": "विवाह स्थिरता", "bn": "বিবাহ স্থায়িত্ব"},
+    "report_marriage_promise_title": {"en": "💍 Marriage Promise & Stability Verdict", "hi": "💍 विवाह योग और वैवाहिक स्थिरता निर्णय", "bn": "💍 দাম্পত্য যোগ ও বৈবাহিক স্থায়িত্ব রায়"},
+    "report_sep_title": {"en": "⚠️ Detected Forensic Separation Windows", "hi": "⚠️ अलगाव समय अवधि (Forensic Windows)", "bn": "⚠️ সনাক্তকৃত বৈবাহিক বিচ্ছেদ সময়কাল"},
+    "report_sep_desc": {
+        "en": "The timing engine checks 6-8-12 dasha periods coupled with transits in the 7th and 8th house sign lords:",
+        "hi": "टाइमिंग इंजन 7वें और 8वें भाव के स्वामियों के गोचर के साथ 6-8-12 दशा अवधियों की जाँच करता है:",
+        "bn": "টাইমিং ইঞ্জিন ৭ম এবং ৮ম ভাবের অধিপতির গোচরের সাথে ৬-৮-১২ দশা সময়কাল পরীক্ষা করে:"
+    },
+    "report_sep_headers_window": {"en": "Date Range", "hi": "समय सीमा", "bn": "সময়সীমা"},
+    "report_sep_headers_dasha": {"en": "Dasha Period", "hi": "दशा अवधि", "bn": "দশা সময়কাল"},
+    "report_sep_headers_houses": {"en": "Negation Houses Involved", "hi": "বাধ্যবাধকতা ভাব", "bn": "যুক্ত নাকচ ভাবসমূহ"},
+    "report_sep_headers_stability": {"en": "Status/Severity", "hi": "स्थिति/गंभीरता", "bn": "অবস্থা/গুরুত্ব"},
+    "report_sep_safe": {"en": "No severe separation or divorce timeline windows detected between ages 18 and 60.", "hi": "18 से 60 वर्ष की आयु के बीच कोई गंभीर अलगाव या तलाक की समय अवधि नहीं मिली है।", "bn": "১৮ থেকে ৬০ বছর বয়সের মধ্যে কোনো গুরুতর বিচ্ছেদ বা বিবাহবিচ্ছেদের সময়কাল সনাক্ত করা যায়নি।"},
+    "report_sep_safe_title": {"en": "✅ Separation Forensic Status", "hi": "✅ अलगाव फोरेंसिक स्थिति", "bn": "✅ বিচ্ছেদ ফরেনসিক স্থিতি"},
+    
+    "report_cta_title": {"en": "Need a Full Professional Consultation or PDF Report?", "hi": "क्या आपको पूर्ण व्यावसायिक परामर्श या पीडीएफ रिपोर्ट की आवश्यकता है?", "bn": "আপনার কি সম্পূর্ণ পেশাদার পরামর্শ বা পিডিএফ রিপোর্টের প্রয়োজন?"},
+    "report_cta_sub": {"en": "Consultation & Licensing by Astrologer Debasish Guha", "hi": "ज्योतिषी देबाशीष गुहा द्वारा परामर्श और लाइसेंसिंग", "bn": "জ্যোতিষী দেবাশীষ গুহর দ্বারা পরামর্শ ও লাইসেন্সিং"},
+    "report_cta_desc": {
+        "en": "Unlock deep life-span calculation analysis, multi-dasa timeline scans, and comprehensive Lal Kitab remedies. Contact Debasish Guha directly to order a custom-printed manual PDF report or to purchase the offline desktop software license key.",
+        "hi": "गहन जीवनकाल विश्लेषण, बहु-दशा समय स्कैन और व्यापक लाल किताब उपायों को अनलॉक करें। कस्टम-मुद्रित मैनुअल पीडीएफ रिपोर्ट ऑर्डर करने या ऑफ़लाइन डेस्कटॉप सॉफ़्टवेयर लाइसेंस कुंजी खरीदने के लिए सीधे देबाशीष गुहा से संपर्क करें।",
+        "bn": "বিশদ জীবনকাল বিশ্লেষণ, বহু-দশা টাইমলাইন স্ক্যান এবং ব্যাপক লাল কিতাব প্রতিকার আনলক করুন। একটি কাস্টম প্রিমিয়াম পিডিএফ রিপোর্ট অর্ডার করতে বা অফলাইন ডেস্কটপ সফ্টওয়্যার লাইসেন্স কি কিনতে সরাসরি দেবাশীষ গুহর সাথে যোগাযোগ করুন।"
+    },
+    "report_cta_btn": {"en": "Contact for Full Consultation", "hi": "पूर्ण परामर्श के लिए संपर्क करें", "bn": "সম্পূর্ণ পরামর্শের জন্য যোগাযোগ করুন"},
+
+    # ==========================================================================
+    # DYNAMIC AI REPORT & VERDICT TRANSLATIONS
+    # ==========================================================================
+    "Past Life Karma": {"en": "Past Life Karma", "hi": "पिछले जन्म का कर्म", "bn": "পূর্বজন্মের কর্ম"},
+    "Past Life Nature": {"en": "Past Life Nature", "hi": "पिछले जन्म का स्वभाव", "bn": "পূর্বজন্মের স্বভাব"},
+    "Karmic Debt": {"en": "Karmic Debt", "hi": "कर्मों का कर्ज (ऋण)", "bn": "কর্ম ঋণ"},
+    "Purpose of Rebirth": {"en": "Purpose of Rebirth", "hi": "पुनर्जन्म का उद्देश्य", "bn": "পুনর্বাসন/পুনর্জন্মের উদ্দেশ্য"},
+    "Native Nature": {"en": "Native Nature", "hi": "मूल स्वभाव", "bn": "জাতকের স্বভাব"},
+    "Fear & Subconscious": {"en": "Fear & Subconscious", "hi": "भय और अवचेतन मन", "bn": "ভয় ও অবচেতন মন"},
+    "Spirituality": {"en": "Spirituality", "hi": "आध्यात्मिकता", "bn": "আধ্যাত্মিকতা"},
+    "Father Nature": {"en": "Father Nature", "hi": "पिता का स्वभाव", "bn": "পিতার স্বভাব"},
+    "Mother Nature": {"en": "Mother Nature", "hi": "माता का स्वभाव", "bn": "মাতার স্বভাব"},
+    "Sibling Nature": {"en": "Sibling/Brother-Sister Nature", "hi": "भाई-बहन का स्वभाव", "bn": "ভাই-বোনের স্বভাব"},
+    "Friends Nature": {"en": "Friends Nature", "hi": "मित्रों का स्वभाव", "bn": "বন্ধুদের স্বভাব"},
+    "Spouse Nature": {"en": "Spouse Nature", "hi": "जीवनसाथी का स्वभाव", "bn": "জীবনসঙ্গীর স্বভাব"},
+    "Pets": {"en": "Pets", "hi": "पालतू पशु", "bn": "গৃহপালিত পশু"},
+    "Vastu": {"en": "Vastu/Home Energy", "hi": "वास्तु दोष/ऊर्जा", "bn": "বাস্তু দোষ ও প্রতিকার"},
+    "Buy House": {"en": "Purchasing a House", "hi": "घर खरीदना", "bn": "গৃহ ক্রয়"},
+    "Buy Vehicle": {"en": "Purchasing a Vehicle", "hi": "वाहन खरीदना", "bn": "যানবাহন ক্রয়"},
+    "School Success": {"en": "Primary Education Success", "hi": "स्कूली शिक्षा में सफलता", "bn": "বিদ্যালয় শিক্ষার সাফল্য"},
+    "Higher Education": {"en": "Higher Education", "hi": "उच्च शिक्षा", "bn": "উচ্চ শিক্ষা"},
+    "Skills": {"en": "Skills & Talents", "hi": "कौशल और प्रतिभा", "bn": "দক্ষতা ও প্রতিভা"},
+    "Weakness": {"en": "Weaknesses", "hi": "कमजोरियां", "bn": "দুর্বলতা"},
+    "Love Relationships": {"en": "Love Relationships", "hi": "प्रेम संबंध", "bn": "প্রেমের সম্পর্ক"},
+    "Married Life": {"en": "Married Life Stability", "hi": "वैवाहिक जीवन", "bn": "দাম্পত্য জীবন"},
+    "Multiple Marriages": {"en": "Multiple Marriages", "hi": "बहु विवाह योग", "bn": "একাধিক বিবাহের যোগ"},
+    "Sex Capacity": {"en": "Physical Vitality & Intimacy", "hi": "शारीरिक जीवन और अंतरंगता", "bn": "শারীরিক জীবন ও ঘনিষ্ঠতা"},
+    "Extra Marital": {"en": "Extra-Marital Relationships", "hi": "विवाहेतर संबंध", "bn": "পরকীয়া সম্পর্ক"},
+    "Immunity": {"en": "Immunity & Health Strength", "hi": "रोग प्रतिरोधक क्षमता", "bn": "রোগ প্রতিরোধ ক্ষমতা"},
+    "Disease": {"en": "Diseases & Health Issues", "hi": "बीमारी और स्वास्थ्य समस्याएं", "bn": "রোগব্যাধি ও স্বাস্থ্য সমস্যা"},
+    "Court Cases": {"en": "Court Cases & Disputes", "hi": "कोर्ट केस और विवाद", "bn": "কোর্ট কেস ও বিবাদ"},
+    "Imprisonment": {"en": "Imprisonment/Confinement Risk", "hi": "जेल/कारावास का जोखिम", "bn": "কারাবাসের ঝুঁকি"},
+    "Hospitalization": {"en": "Hospitalization Risk", "hi": "अस्पताल में भर्ती होने का जोखिम", "bn": "হাসপাতালে ভর্তির ঝুঁকি"},
+    "Accident": {"en": "Accidents & Injuries Risk", "hi": "दुर्घटना का जोखिम", "bn": "দুর্ঘটনার ঝুঁকি"},
+    "Interview": {"en": "Job Interviews & Selection", "hi": "साक्षात्कार और नौकरी चयन", "bn": "চাকরির ইন্টারভিউ ও নির্বাচন"},
+    "Profession": {"en": "Profession & Career Path", "hi": "पेशा और आजीविका", "bn": "পেশা ও জীবিকা"},
+    "Promotion": {"en": "Job Promotion & Growth", "hi": "पदोन्नति और उन्नति", "bn": "চাকরিতে পদোন্নতি ও উন্নতি"},
+    "Bank Balance": {"en": "Wealth Accumulation & Bank Balance", "hi": "धन संचय और बैंक बैलेंस", "bn": "অর্থ সঞ্চয় ও ব্যাংক ব্যালেন্স"},
+    "Speculation": {"en": "Speculation & Lottery Gains", "hi": "सट्टा और लॉटरी लाभ", "bn": "শেয়ার বাজার ও লটারি লাভ"},
+    "Life Span": {"en": "Longevity & Life Span", "hi": "दीर्घायु और जीवन काल", "bn": "দীর্ঘায়ু ও জীবনকাল"},
+    "Reason of Death": {"en": "Reason/Nature of Departure", "hi": "मृत्यु का कारण", "bn": "মৃত্যুর কারণ"},
+
+    "Marriage NOT Promised (7th CSL {csl_planet} lacks 2/11).": {
+        "en": "Marriage NOT Promised (7th CSL {csl_planet} lacks 2/11).",
+        "hi": "विवाह का योग नहीं है (सातवें भाव का उप-स्वामी {csl_planet} भाव 2/11 से नहीं जुड़ा है)।",
+        "bn": "বিবাহের যোগ নেই (৭ম ভাবের উপ-অধিপতি {csl_planet} ২/১১ ভাবের সাথে যুক্ত নয়)।"
+    },
+    "Marriage happened but separation confirmed (7th CSL {csl_planet} shows 2/11 and 1/6/8/12).": {
+        "en": "Marriage promised but separation/dispute indicated (7th CSL {csl_planet} shows 2/11 and 1/6/8/12).",
+        "hi": "विवाह का योग है लेकिन अलगाव की प्रबल संभावना है (सातवें भाव का उप-स्वामी {csl_planet} भाव 2/11 और 1/6/8/12 दोनों दर्शाता है)।",
+        "bn": "বিবাহের যোগ আছে কিন্তু বিচ্ছেদের প্রবল সম্ভাবনা রয়েছে (৭ম ভাবের উপ-অধিপতি {csl_planet} ২/১১ এবং ১/৬/৮/১২ উভয় ভাব নির্দেশ করছে)।"
+    },
+    "Stable Marriage promised (7th CSL {csl_planet} lacks 1/6/8/12).": {
+        "en": "Stable Marriage promised (7th CSL {csl_planet} lacks 1/6/8/12).",
+        "hi": "स्थिर वैवाहिक जीवन का योग है (सातवें भाव का उप-स्वामी {csl_planet} भाव 1/6/8/12 से दूर है)।",
+        "bn": "সুস্থির দাম্পত্য জীবনের যোগ রয়েছে (৭ম ভাবের উপ-অধিপতি {csl_planet} ১/৬/৮/১২ ভাবের সাথে যুক্ত নয়)।"
+    },
+    "MAJOR {event_type} WINDOW": {
+        "en": "MAJOR {event_type} WINDOW",
+        "hi": "मुख्य {event_type} समय",
+        "bn": "প্রধান {event_type} সময়কাল"
+    },
+    "DIVORCE": {
+        "en": "DIVORCE",
+        "hi": "तलाक",
+        "bn": "বিবাহবিচ্ছেদ"
+    },
+    "WIDOWHOOD": {
+        "en": "WIDOWHOOD",
+        "hi": "वैधव्य (जीवनसाथी की मृत्यु)",
+        "bn": "বৈধব্য (জীবনসঙ্গী বিয়োগ)"
+    },
+
+    "pred_strong_1": {
+        "en": "The cosmic gates are wide open. {karaka} smiles benevolently upon this aspect.",
+        "hi": "ब्रह्मांडीय द्वार पूरी तरह खुले हैं। {karaka} इस पहलू पर कृपा बरसा रहे हैं।",
+        "bn": "মহাজাগতিক দ্বার সম্পূর্ণ উন্মুক্ত। {karaka} এই বিষয়ের ওপর আশীর্বাদ বর্ষণ করছেন।"
+    },
+    "pred_strong_2": {
+        "en": "A powerful destiny is written here, strong and undeniable.",
+        "hi": "यहाँ एक शक्तिशाली भाग्य लिखा गया है, जो दृढ़ और अकाट्य है।",
+        "bn": "এখানে একটি শক্তিশালী ভাগ্য লিখিত রয়েছে, যা দৃঢ় এবং অনস্বীকার্য।"
+    },
+    "pred_strong_3": {
+        "en": "Fortune favors you greatly in this realm; the energy flows without obstruction.",
+        "hi": "इस क्षेत्र में भाग्य आपका पूरा साथ दे रहा है; ऊर्जा बिना किसी बाधा के प्रवाहित हो रही है।",
+        "bn": "এই ক্ষেত্রে ভাগ্য আপনাকে ব্যাপকভাবে সমর্থন করছে; শক্তি কোনো বাধা ছাড়াই প্রবাহিত হচ্ছে।"
+    },
+    "pred_moderate_1": {
+        "en": "The path is visible but requires effort. {karaka} watches, waiting for your action.",
+        "hi": "मार्ग दिखाई दे रहा है लेकिन प्रयास की आवश्यकता है। {karaka} देख रहे हैं, आपके कर्म की प्रतीक्षा कर रहे हैं।",
+        "bn": "পথটি দৃশ্যমান তবে প্রচেষ্টার প্রয়োজন। {karaka} দেখছেন, আপনার কর্মের অপেক্ষায় আছেন।"
+    },
+    "pred_moderate_2": {
+        "en": "Success is promised, though it may come with lessons to be learned.",
+        "hi": "सफलता का वादा है, हालांकि इसके लिए कुछ सबक सीखने पड़ सकते हैं।",
+        "bn": "সাফল্য নিশ্চিত, তবে এর জন্য কিছু শিক্ষা লাভ করতে হতে পারে।"
+    },
+    "pred_moderate_3": {
+        "en": "A moderate influence. With free will and persistence, this fruit will ripen.",
+        "hi": "एक मध्यम प्रभाव। स्वतंत्र इच्छा और दृढ़ता के साथ, यह फल अवश्य पकेगा।",
+        "bn": "একটি মাঝারি প্রভাব। মুক্ত ইচ্ছা এবং অধ্যবসায়ের সাথে, এই ফল অবশ্যই পাকবে।"
+    },
+    "pred_weak_1": {
+        "en": "The mists of karma obscure this path. {karaka} suggests focusing elsewhere.",
+        "hi": "कर्म का कोहरा इस मार्ग को धुंधला कर रहा है। {karaka} कहीं और ध्यान केंद्रित करने का सुझाव देते हैं।",
+        "bn": "কর্মের কুয়াশা এই পথটিকে অস্পষ্ট করছে। {karaka} অন্য কোথাও মনোনিবেশ করার পরামর্শ দিচ্ছেন।"
+    },
+    "pred_weak_2": {
+        "en": "Challenges are indicated. Use this knowledge to prepare, not to fear.",
+        "hi": "चुनौतियों का संकेत है। इस ज्ञान का उपयोग तैयारी के लिए करें, डरने के लिए नहीं।",
+        "bn": "চ্যালেঞ্জের ইঙ্গিত রয়েছে। এই জ্ঞানটিকে প্রস্তুতির জন্য ব্যবহার করুন, ভয়ের জন্য নয়।"
+    },
+    "pred_weak_3": {
+        "en": "The energy here is quiet. Do not force the river to flow upstream.",
+        "hi": "यहाँ ऊर्जा शांत है। नदी को विपरीत दिशा में बहने के लिए मजबूर न करें।",
+        "bn": "এখানে শক্তি শান্ত। নদীকে উল্টো দিকে প্রবাহিত হতে বাধ্য করবেন না।"
+    },
 }
+
 
 SIGN_KEY_MAP = {
     "Aries": "sign_aries", "Taurus": "sign_taurus", "Gemini": "sign_gemini", "Cancer": "sign_cancer",
