@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Astrology Report - {{ name }}</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <!-- Local CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <!-- Sticky Navigation Bar -->
+    <header class="navbar-header">
+        <div class="container nav-container">
+            <a href="/" class="logo-link">
+                <span class="logo-text">DIVYA DRISHTI</span>
+                <span class="logo-sub">KP Vedic Astrology Suite</span>
+            </a>
+            <ul class="nav-menu">
+                <li class="nav-item"><a href="/">Home</a></li>
+                <li class="nav-item"><a href="/#services">Services</a></li>
+                <li class="nav-item active"><a href="#">Astrology Report</a></li>
+                <li class="nav-item"><a href="/#about">About</a></li>
+                <li class="nav-item"><a href="/#pricing">Pricing</a></li>
+                <li class="nav-item"><a href="/#contact">Contact</a></li>
+                <li class="nav-item"><a href="/" class="nav-btn">New Chart</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <div class="container animate-fade-in" style="margin-top: 2rem;">
+        
+        <!-- Back Button -->
+        <a href="/" style="display: inline-block; color: var(--gold); text-decoration: none; margin-bottom: 1.5rem; font-weight: bold; font-size: 0.95rem; transition: color 0.2s;">← Calculate Another Chart</a>
+
+        <!-- Native Profile Card -->
+        <div class="card">
+            <h2 class="card-title">Birth Information Summary</h2>
+            <div class="form-grid">
+                <div>
+                    <label>Name</label>
+                    <p style="font-size: 1.2rem; font-weight: bold; color: #ffffff;">{{ name }}</p>
+                </div>
+                <div>
+                    <label>Date of Birth</label>
+                    <p style="font-size: 1.2rem; font-weight: bold; color: #ffffff;">{{ birth_date }}</p>
+                </div>
+                <div>
+                    <label>Time of Birth</label>
+                    <p style="font-size: 1.2rem; font-weight: bold; color: #ffffff;">{{ birth_time }}</p>
+                </div>
+                <div>
+                    <label>Coordinates</label>
+                    <p style="font-size: 1.1rem; color: #ffffff;">{{ lat }}° N, {{ lon }}° E (Timezone: {{ tz }})</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Visual Kundli Chart Card -->
+        <div class="card full-width" style="margin-top: 2rem;">
+            <h2 class="card-title">Visual Birth Chart (Kundli)</h2>
+            <div style="display: flex; flex-wrap: wrap; gap: 1rem; margin-bottom: 1.5rem; justify-content: space-between; align-items: center;">
+                <div class="toggle-group" style="display: flex; gap: 0.5rem; background: rgba(30, 30, 50, 0.4); padding: 4px; border-radius: 8px; border: 1px solid var(--card-border);">
+                    <button id="btn-north-indian" class="tab-btn active" style="margin-bottom:0; padding: 0.5rem 1rem; border-bottom: none; border-radius: 6px;" onclick="setChartStyle('north')">North Indian (Diamond)</button>
+                    <button id="btn-south-indian" class="tab-btn" style="margin-bottom:0; padding: 0.5rem 1rem; border-bottom: none; border-radius: 6px;" onclick="setChartStyle('south')">South Indian (Box)</button>
+                </div>
+                <div class="toggle-group" style="display: flex; gap: 0.5rem; background: rgba(30, 30, 50, 0.4); padding: 4px; border-radius: 8px; border: 1px solid var(--card-border);">
+                    <button id="btn-rasi-chart" class="tab-btn active" style="margin-bottom:0; padding: 0.5rem 1rem; border-bottom: none; border-radius: 6px;" onclick="setChartMode('rasi')">Rasi Chart (D1)</button>
+                    <button id="btn-bhava-chart" class="tab-btn" style="margin-bottom:0; padding: 0.5rem 1rem; border-bottom: none; border-radius: 6px;" onclick="setChartMode('bhava')">Bhava Chalit</button>
+                </div>
+            </div>
+            
+            <div style="display: flex; justify-content: center; align-items: center; background: rgba(5, 5, 10, 0.6); padding: 2rem; border-radius: 12px; border: 1px solid var(--card-border); box-shadow: inset 0 0 20px rgba(124, 58, 237, 0.15);">
+                <div id="chart-container" style="width: 100%; max-width: 420px; aspect-ratio: 1/1;">
+                    <!-- SVG Chart will render here dynamically -->
+                </div>
+            </div>
+        </div>
+
+        <div class="report-grid">
+            <!-- Planetary Positions -->
+            <div class="card">
+                <h2 class="card-title">Planetary Positions & Star Lords</h2>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Planet</th>
+                                <th>Longitude</th>
+                                <th>Sign</th>
+                                <th>Nakshatra</th>
+                                <th>Star Lord</th>
+                                <th>Sub Lord</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for p in chart.planetary_positions %}
+                            <tr>
+                                <td style="font-weight: bold;">{{ p.planet }}</td>
+                                <td>{{ p.longitude_dms }}</td>
+                                <td>{{ p.sign }}</td>
+                                <td>{{ p.nakshatra }}</td>
+                                <td>{{ p.star_lord }}</td>
+                                <td style="color: var(--gold); font-weight: bold;">{{ p.sub_lord }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- House Cusps -->
+            <div class="card">
+                <h2 class="card-title">House Cusps (Placidus Houses)</h2>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Cusp</th>
+                                <th>Longitude</th>
+                                <th>Sign</th>
+                                <th>Sign Lord</th>
+                                <th>Star Lord</th>
+                                <th>Sub Lord</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for c in chart.house_cusps %}
+                            <tr>
+                                <td style="font-weight: bold;">Cusp {{ c.cusp }}</td>
+                                <td>{{ c.longitude_dms }}</td>
+                                <td>{{ c.sign }}</td>
+                                <td>{{ c.sign_lord }}</td>
+                                <td>{{ c.star_lord }}</td>
+                                <td style="color: var(--gold); font-weight: bold;">{{ c.sub_lord }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Planet Significators -->
+            <div class="card full-width">
+                <h2 class="card-title">KP Planetary Significators</h2>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Planet</th>
+                                <th>Source Row (Occupies & Owns)</th>
+                                <th>Result Row (Star Lord & Sub Lord CSL connections)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for s in chart.planet_significators %}
+                            <tr>
+                                <td style="font-weight: bold; font-size: 1.1rem; color: var(--gold);">{{ s.planet }}</td>
+                                <td style="font-family: monospace; font-size: 1rem;">{{ s.Source_Row }}</td>
+                                <td style="font-family: monospace; font-size: 1rem; color: #ffffff;">{{ s.Result_Row }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- AI & KP Forensic Predictions -->
+            <div class="card full-width">
+                <h2 class="card-title">AI & KP Forensic Narrative Report</h2>
+                
+                <div class="tabs-header">
+                    <button class="tab-btn active" onclick="openTab(event, 'tab-purpose')">Dharma & Purpose</button>
+                    <button class="tab-btn" onclick="openTab(event, 'tab-family')">Family & Relations</button>
+                    <button class="tab-btn" onclick="openTab(event, 'tab-education')">Wisdom & Skills</button>
+                    <button class="tab-btn" onclick="openTab(event, 'tab-career')">Career & Wealth</button>
+                    <button class="tab-btn" onclick="openTab(event, 'tab-marriage')">Marriage Stability</button>
+                </div>
+
+                <!-- Tab: Purpose -->
+                <div id="tab-purpose" class="tab-content active">
+                    {% for topic, text in predictions.WHO_AM_I.items() %}
+                    <div class="prediction-topic">
+                        <h3 class="prediction-title">🔮 {{ topic }}</h3>
+                        <p class="prediction-text">{{ text }}</p>
+                    </div>
+                    {% endfor %}
+                </div>
+
+                <!-- Tab: Family -->
+                <div id="tab-family" class="tab-content">
+                    {% for topic, text in predictions.FAMILY.items() %}
+                    <div class="prediction-topic">
+                        <h3 class="prediction-title">🔮 {{ topic }}</h3>
+                        <p class="prediction-text">{{ text }}</p>
+                    </div>
+                    {% endfor %}
+                </div>
+
+                <!-- Tab: Education -->
+                <div id="tab-education" class="tab-content">
+                    {% for topic, text in predictions.KNOWLEDGE.items() %}
+                    <div class="prediction-topic">
+                        <h3 class="prediction-title">🔮 {{ topic }}</h3>
+                        <p class="prediction-text">{{ text }}</p>
+                    </div>
+                    {% endfor %}
+                </div>
+
+                <!-- Tab: Career -->
+                <div id="tab-career" class="tab-content">
+                    {% for topic, text in predictions.WORK.items() %}
+                    <div class="prediction-topic">
+                        <h3 class="prediction-title">🔮 {{ topic }}</h3>
+                        <p class="prediction-text">{{ text }}</p>
+                    </div>
+                    {% endfor %}
+                </div>
+
+                <!-- Tab: Marriage -->
+                <div id="tab-marriage" class="tab-content">
+                    <div class="prediction-topic">
+                        <h3 class="prediction-title">💍 Marriage Promise & Stability Verdict</h3>
+                        <p class="prediction-text" style="font-size: 1.1rem; color: #ffffff; padding: 1rem; background: rgba(246, 201, 14, 0.05); border-left: 4px solid var(--gold); border-radius: 4px;">
+                            {{ marriage.Promise }}
+                        </p>
+                    </div>
+                    
+                    {% if marriage.Event_Windows %}
+                    <div class="prediction-topic" style="margin-top: 1.5rem;">
+                        <h3 class="prediction-title" style="color: var(--danger);">⚠️ Detected Forensic Separation Windows</h3>
+                        <p class="prediction-text" style="margin-bottom: 1rem; color: var(--text-dim);">
+                            The timing engine checks 6-8-12 dasha periods coupled with transits in the 7th and 8th house sign lords:
+                        </p>
+                        <div class="table-container">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Date Range</th>
+                                        <th>Dasha Period</th>
+                                        <th>Negation Houses Involved</th>
+                                        <th>Status/Severity</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for w in marriage.Event_Windows %}
+                                    <tr>
+                                        <td style="font-weight: bold; color: var(--danger);">{{ w.window }}</td>
+                                        <td>{{ w.dasha }}</td>
+                                        <td>{{ w.houses }}</td>
+                                        <td style="color: #ffffff;"><span class="info-badge" style="background: rgba(239, 68, 68, 0.1); border-color: var(--danger); color: var(--danger);">{{ w.stability }}</span></td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    {% else %}
+                    <div class="prediction-topic" style="margin-top: 1.5rem;">
+                        <h3 class="prediction-title" style="color: var(--success);">✅ Separation Forensic Status</h3>
+                        <p class="prediction-text" style="color: var(--success); font-weight: bold;">
+                            No severe separation or divorce timeline windows detected between ages 18 and 60.
+                        </p>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+        <!-- Monetization CTA Banner -->
+        <div class="cta-banner">
+            <h3 class="cta-title">Need a Full Professional Consultation or PDF Report?</h3>
+            <p class="cta-sub">Consultation & Licensing by Debasish Guha</p>
+            <p class="cta-desc">
+                Unlock deep life-span calculation analysis, multi-dasa timeline scans, and comprehensive Lal Kitab remedies. Contact Debasish Guha directly to order a custom-printed manual PDF report or to purchase the offline desktop software license key.
+            </p>
+            <a href="/#contact" class="cta-contact">Contact for Full Consultation</a>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-logo">
+                <span class="logo-text">DIVYA DRISHTI</span><br>
+                <span class="logo-sub">KP Vedic Astrology Specialist</span>
+            </div>
+            
+            <ul class="footer-links">
+                <li><a href="/">Home</a></li>
+                <li><a href="/#services">Services</a></li>
+                <li><a href="/">Calculator</a></li>
+                <li><a href="/#pricing">Pricing</a></li>
+                <li><a href="/#contact">Contact</a></li>
+            </ul>
+            
+            <p class="footer-copy">
+                &copy; 2026 Divya Drishti Astrology. All rights reserved. Designed for Debasish Guha.
+            </p>
+            <p class="footer-disclaimer">
+                Disclaimer: Astrological calculations and predictions are based on the Krishnamurti Paddhati (KP System) principles. Astrological analyses are for guidance and informational purposes, and decisions should be made using individual discretion and reasoning.
+            </p>
+        </div>
+    </footer>
+
+    <!-- JavaScript to handle tabs & Visual SVG Chart -->
+    <script>
+        function openTab(evt, tabId) {
+            // Get all tab contents
+            const tabContents = document.getElementsByClassName("tab-content");
+            for (let i = 0; i < tabContents.length; i++) {
+                tabContents[i].classList.remove("active");
+            }
+
+            // Get all tab buttons and remove active class
+            const tabBtns = document.getElementsByClassName("tab-btn");
+            for (let i = 0; i < tabBtns.length; i++) {
+                tabBtns[i].classList.remove("active");
+            }
+
+            // Show selected tab and set button as active
+            document.getElementById(tabId).classList.add("active");
+            evt.currentTarget.classList.add("active");
+        }
+
+        // --- Visual Kundli SVG Generator ---
+        const ascSignIdx = {{ asc_sign_idx }};
+        const rasiOccupancy = {{ rasi_occupancy | tojson }};
+        const bhavaOccupancy = {{ bhava_occupancy | tojson }};
+        const cuspSignIndices = {{ cusp_sign_indices | tojson }};
+
+        let currentStyle = 'north'; 
+        let currentMode = 'rasi';   
+
+        const PLANET_ABBRS = {
+            'Sun': 'Su', 'Moon': 'Mo', 'Mars': 'Ma', 'Mercury': 'Me',
+            'Jupiter': 'Ju', 'Venus': 'Ve', 'Saturn': 'Sa', 'Rahu': 'Ra',
+            'Ketu': 'Ke', 'Uranus': 'Ur', 'Neptune': 'Ne', 'Pluto': 'Pl'
+        };
+
+        const SIGN_NAMES = [
+            'Aries', 'Taurus', 'Gemini', 'Cancer', 'Leo', 'Virgo',
+            'Libra', 'Scorpio', 'Sagittarius', 'Capricorn', 'Aquarius', 'Pisces'
+        ];
+
+        const SIGN_ABBRS = ['Ar', 'Ta', 'Ge', 'Cn', 'Le', 'Vi', 'Li', 'Sc', 'Sg', 'Cp', 'Aq', 'Pi'];
+
+        function setChartStyle(style) {
+            currentStyle = style;
+            document.getElementById('btn-north-indian').classList.toggle('active', style === 'north');
+            document.getElementById('btn-south-indian').classList.toggle('active', style === 'south');
+            renderChart();
+        }
+
+        function setChartMode(mode) {
+            currentMode = mode;
+            document.getElementById('btn-rasi-chart').classList.toggle('active', mode === 'rasi');
+            document.getElementById('btn-bhava-chart').classList.toggle('active', mode === 'bhava');
+            renderChart();
+        }
+
+        function renderChart() {
+            const container = document.getElementById('chart-container');
+            if (!container) return;
+
+            const housePlanets = Array.from({ length: 13 }, () => []);
+            
+            if (currentMode === 'rasi') {
+                for (const [p, signIdx] of Object.entries(rasiOccupancy)) {
+                    const houseIdx = (signIdx - ascSignIdx + 12) % 12 + 1;
+                    housePlanets[houseIdx].push(PLANET_ABBRS[p] || p);
+                }
+            } else { 
+                for (const [p, houseIdx] of Object.entries(bhavaOccupancy)) {
+                    if (houseIdx >= 1 && houseIdx <= 12) {
+                        housePlanets[houseIdx].push(PLANET_ABBRS[p] || p);
+                    }
+                }
+            }
+
+            if (currentStyle === 'north') {
+                container.innerHTML = generateNorthIndianSVG(housePlanets);
+            } else {
+                container.innerHTML = generateSouthIndianSVG(housePlanets);
+            }
+        }
+
+        function generateNorthIndianSVG(housePlanets) {
+            const houseSigns = [];
+            for (let h = 1; h <= 12; h++) {
+                if (currentMode === 'rasi') {
+                    houseSigns[h] = (ascSignIdx + h - 2) % 12 + 1;
+                } else {
+                    houseSigns[h] = cuspSignIndices[h - 1] || 1;
+                }
+            }
+
+            const houseMeta = {
+                1:  { label: [200, 95],  planets: [200, 130] },
+                2:  { label: [100, 48],  planets: [100, 75] },
+                3:  { label: [48, 100],  planets: [48, 128] },
+                4:  { label: [95, 200],  planets: [130, 200] },
+                5:  { label: [48, 300],  planets: [48, 328] },
+                6:  { label: [100, 352], planets: [100, 378] },
+                7:  { label: [200, 305], planets: [200, 275] },
+                8:  { label: [300, 352], planets: [300, 378] },
+                9:  { label: [352, 300], planets: [352, 328] },
+                10: { label: [305, 200], planets: [270, 200] },
+                11: { label: [352, 100], planets: [352, 128] },
+                12: { label: [300, 48],  planets: [300, 75] }
+            };
+
+            let svg = `
+            <svg viewBox="0 0 400 400" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" style="background:#020205; border-radius:8px;">
+                <!-- Outer Border -->
+                <rect x="10" y="10" width="380" height="380" fill="none" stroke="#7c3aed" stroke-width="2.5" />
+                
+                <!-- Diagonals -->
+                <line x1="10" y1="10" x2="390" y2="390" stroke="#4c1d95" stroke-width="1.5" />
+                <line x1="390" y1="10" x2="10" y2="390" stroke="#4c1d95" stroke-width="1.5" />
+                
+                <!-- Inner Diamond -->
+                <polygon points="200,10 390,200 200,390 10,200" fill="none" stroke="#7c3aed" stroke-width="1.5" />
+            `;
+
+            svg += `
+                <text x="200" y="65" text-anchor="middle" fill="#f6c90e" font-size="10" font-weight="bold" letter-spacing="1">ASC (Lagna)</text>
+            `;
+
+            for (let h = 1; h <= 12; h++) {
+                const meta = houseMeta[h];
+                const signNum = houseSigns[h];
+                const planets = housePlanets[h];
+                
+                svg += `
+                <text x="${meta.label[0]}" y="${meta.label[1]}" text-anchor="middle" fill="#f6c90e" font-size="13" font-weight="bold">${signNum}</text>
+                `;
+
+                if (planets.length > 0) {
+                    const textX = meta.planets[0];
+                    const textY = meta.planets[1];
+                    
+                    svg += `<text x="${textX}" y="${textY}" text-anchor="middle" fill="#e2e8f0" font-size="12" font-weight="bold">`;
+                    let dy = 0;
+                    for (let pIdx = 0; pIdx < planets.length; pIdx += 2) {
+                        const chunk = planets.slice(pIdx, pIdx + 2).join(' ');
+                        svg += `<tspan x="${textX}" dy="${dy}">${chunk}</tspan>`;
+                        dy = 15;
+                    }
+                    svg += `</text>`;
+                }
+            }
+
+            svg += `</svg>`;
+            return svg;
+        }
+
+        function generateSouthIndianSVG(housePlanets) {
+            const cellMeta = {
+                12: { x: 0,   y: 0,   name: 'Pi' }, 
+                1:  { x: 100, y: 0,   name: 'Ar' }, 
+                2:  { x: 200, y: 0,   name: 'Ta' }, 
+                3:  { x: 300, y: 0,   name: 'Ge' }, 
+                4:  { x: 300, y: 100, name: 'Cn' }, 
+                5:  { x: 300, y: 200, name: 'Le' }, 
+                6:  { x: 300, y: 300, name: 'Vi' }, 
+                7:  { x: 200, y: 300, name: 'Li' }, 
+                8:  { x: 100, y: 300, name: 'Sc' }, 
+                9:  { x: 0,   y: 300, name: 'Sg' }, 
+                10: { x: 0,   y: 200, name: 'Cp' }, 
+                11: { x: 0,   y: 100, name: 'Aq' }  
+            };
+
+            const houseSigns = [];
+            for (let h = 1; h <= 12; h++) {
+                if (currentMode === 'rasi') {
+                    houseSigns[h] = (ascSignIdx + h - 2) % 12 + 1;
+                } else {
+                    houseSigns[h] = cuspSignIndices[h - 1] || 1;
+                }
+            }
+
+            const signHouses = {};
+            for (let h = 1; h <= 12; h++) {
+                const s = houseSigns[h];
+                signHouses[s] = h;
+            }
+
+            const signPlanets = Array.from({ length: 13 }, () => []);
+            if (currentMode === 'rasi') {
+                for (const [p, signIdx] of Object.entries(rasiOccupancy)) {
+                    signPlanets[signIdx].push(PLANET_ABBRS[p] || p);
+                }
+            } else {
+                for (const [p, houseIdx] of Object.entries(bhavaOccupancy)) {
+                    if (houseIdx >= 1 && houseIdx <= 12) {
+                        const signIdx = houseSigns[houseIdx];
+                        signPlanets[signIdx].push(PLANET_ABBRS[p] || p);
+                    }
+                }
+            }
+
+            let svg = `
+            <svg viewBox="0 0 400 400" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" style="background:#020205; border-radius:8px;">
+                <!-- Center Empty box border -->
+                <rect x="100" y="100" width="200" height="200" fill="rgba(15, 15, 30, 0.4)" stroke="#4c1d95" stroke-width="1.5" />
+                <text x="200" y="190" text-anchor="middle" fill="#7c3aed" font-size="14" font-weight="bold" letter-spacing="2">DIVYA DRISHTI</text>
+                <text x="200" y="215" text-anchor="middle" fill="#f6c90e" font-size="11" font-weight="bold" letter-spacing="1">ASC: ${SIGN_NAMES[ascSignIdx - 1].toUpperCase()}</text>
+            `;
+
+            for (let s = 1; s <= 12; s++) {
+                const cell = cellMeta[s];
+                const px = cell.x;
+                const py = cell.y;
+                const signName = cell.name;
+                const houseNum = signHouses[s];
+                const planets = signPlanets[s];
+                
+                svg += `
+                <rect x="${px}" y="${py}" width="100" height="100" fill="none" stroke="#7c3aed" stroke-width="1.5" />
+                `;
+
+                svg += `
+                <text x="${px + 8}" y="${py + 20}" fill="#94a3b8" font-size="11" font-weight="bold">${signName.toUpperCase()}</text>
+                `;
+
+                if (s === ascSignIdx) {
+                    svg += `
+                    <text x="${px + 92}" y="${py + 20}" text-anchor="end" fill="#f6c90e" font-size="10" font-weight="bold" letter-spacing="0.5">ASC</text>
+                    <line x1="${px}" y1="${py}" x2="${px + 25}" y2="${py + 25}" stroke="#f6c90e" stroke-width="1.5" />
+                    `;
+                }
+
+                if (houseNum) {
+                    svg += `
+                    <text x="${px + 92}" y="${py + 35}" text-anchor="end" fill="#7c3aed" font-size="10" font-weight="bold">H${houseNum}</text>
+                    `;
+                }
+
+                if (planets.length > 0) {
+                    const textX = px + 50;
+                    const textY = py + 55;
+                    svg += `
+                    <text x="${textX}" y="${textY}" text-anchor="middle" fill="#e2e8f0" font-size="11" font-weight="bold">
+                    `;
+                    let dy = 0;
+                    for (let pIdx = 0; pIdx < planets.length; pIdx += 2) {
+                        const chunk = planets.slice(pIdx, pIdx + 2).join(' ');
+                        svg += `<tspan x="${textX}" dy="${dy}">${chunk}</tspan>`;
+                        dy = 15;
+                    }
+                    svg += `</text>`;
+                }
+            }
+
+            svg += `</svg>`;
+            return svg;
+        }
+
+        // Initialize chart on page load
+        window.addEventListener('DOMContentLoaded', () => {
+            renderChart();
+        });
+    </script>
+</body>
+</html>
