@@ -215,18 +215,32 @@ def calculate():
         ],
         "WORK": [
             "Interview", "Profession", "Promotion", "Bank Balance", "Speculation"
+        ],
+        "RELATIONSHIPS": [
+            "Love Relationships", "Married Life", "Multiple Marriages", "Sex Capacity", "Extra Marital"
+        ],
+        "PAIN_ENEMY": [
+            "Immunity", "Disease", "Court Cases", "Imprisonment", "Hospitalization", "Accident"
+        ],
+        "GOODBYE": [
+            "Life Span", "Reason of Death"
         ]
     }
     
     predictions_results = {}
     for cat_name, topics in categories.items():
-        predictions_results[cat_name] = {}
+        predictions_results[cat_name] = []
         for topic in topics:
             rule = KP_RULES.get(topic)
             if rule:
                 promise_strength = predictor._check_promise(rule["pos"], rule["neg"], p1["cusps"], engine.calc)
                 result_text = predictor._poetic_interpretation(topic, promise_strength, rule["karaka"], lang=lang)
-                predictions_results[cat_name][topic] = result_text
+                predictions_results[cat_name].append({
+                    "topic": topic,
+                    "text": result_text,
+                    "score": promise_strength,
+                    "karaka": rule["karaka"]
+                })
 
     # Run Marriage and Divorce Forensic calculations
     try:

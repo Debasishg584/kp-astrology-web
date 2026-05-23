@@ -187,59 +187,81 @@
             <div class="card full-width">
                 <h2 class="card-title">{{ t('report_narrative_title') }}</h2>
                 
-                <div class="tabs-header">
+                {% macro render_predictions(items) %}
+                    {% for item in items %}
+                    <div class="prediction-topic">
+                        <div class="prediction-header">
+                            <h3 class="prediction-title">🔮 {{ t(item.topic) }}</h3>
+                            <div class="prediction-badges">
+                                {% if item.score >= 80 %}
+                                <span class="promise-badge promise-strong">🟢 {{ t('high_promise') }} ({{ n(item.score) }}%)</span>
+                                {% elif item.score >= 50 %}
+                                <span class="promise-badge promise-moderate">🟡 {{ t('medium_promise') }} ({{ n(item.score) }}%)</span>
+                                {% else %}
+                                <span class="promise-badge promise-weak">🔴 {{ t('low_promise') }} ({{ n(item.score) }}%)</span>
+                                {% endif %}
+                                <span class="karaka-badge">{{ t('ruling_planet') }}: {{ tp(item.karaka) }}</span>
+                            </div>
+                        </div>
+                        <div class="prediction-progress-container">
+                            <div class="prediction-progress-bar {% if item.score >= 80 %}promise-strong{% elif item.score >= 50 %}promise-moderate{% else %}promise-weak{% endif %}" style="width: {{ item.score }}%;"></div>
+                        </div>
+                        <p class="prediction-text">{{ item.text }}</p>
+                    </div>
+                    {% endfor %}
+                {% endmacro %}
+
+                <div class="tabs-header" style="flex-wrap: wrap; gap: 0.5rem;">
                     <button class="tab-btn active" onclick="openTab(event, 'tab-purpose')">{{ t('report_tab_purpose') }}</button>
                     <button class="tab-btn" onclick="openTab(event, 'tab-family')">{{ t('report_tab_family') }}</button>
                     <button class="tab-btn" onclick="openTab(event, 'tab-education')">{{ t('report_tab_education') }}</button>
                     <button class="tab-btn" onclick="openTab(event, 'tab-career')">{{ t('report_tab_career') }}</button>
-                    <button class="tab-btn" onclick="openTab(event, 'tab-marriage')">{{ t('report_tab_marriage') }}</button>
+                    <button class="tab-btn" onclick="openTab(event, 'tab-love')">{{ t('Love Relationships') }}</button>
+                    <button class="tab-btn" onclick="openTab(event, 'tab-health')">{{ t('Disease') }}</button>
+                    <button class="tab-btn" onclick="openTab(event, 'tab-longevity')">{{ t('Life Span') }}</button>
+                    <button class="tab-btn" onclick="openTab(event, 'tab-marriage')">{{ t('report_marriage_promise_title') }}</button>
                 </div>
 
                 <!-- Tab: Purpose -->
                 <div id="tab-purpose" class="tab-content active">
-                    {% for topic, text in predictions.WHO_AM_I.items() %}
-                    <div class="prediction-topic">
-                        <h3 class="prediction-title">🔮 {{ t(topic) }}</h3>
-                        <p class="prediction-text">{{ text }}</p>
-                    </div>
-                    {% endfor %}
+                    {{ render_predictions(predictions.WHO_AM_I) }}
                 </div>
 
                 <!-- Tab: Family -->
                 <div id="tab-family" class="tab-content">
-                    {% for topic, text in predictions.FAMILY.items() %}
-                    <div class="prediction-topic">
-                        <h3 class="prediction-title">🔮 {{ t(topic) }}</h3>
-                        <p class="prediction-text">{{ text }}</p>
-                    </div>
-                    {% endfor %}
+                    {{ render_predictions(predictions.FAMILY) }}
                 </div>
 
                 <!-- Tab: Education -->
                 <div id="tab-education" class="tab-content">
-                    {% for topic, text in predictions.KNOWLEDGE.items() %}
-                    <div class="prediction-topic">
-                        <h3 class="prediction-title">🔮 {{ t(topic) }}</h3>
-                        <p class="prediction-text">{{ text }}</p>
-                    </div>
-                    {% endfor %}
+                    {{ render_predictions(predictions.KNOWLEDGE) }}
                 </div>
 
                 <!-- Tab: Career -->
                 <div id="tab-career" class="tab-content">
-                    {% for topic, text in predictions.WORK.items() %}
-                    <div class="prediction-topic">
-                        <h3 class="prediction-title">🔮 {{ t(topic) }}</h3>
-                        <p class="prediction-text">{{ text }}</p>
-                    </div>
-                    {% endfor %}
+                    {{ render_predictions(predictions.WORK) }}
+                </div>
+
+                <!-- Tab: Love -->
+                <div id="tab-love" class="tab-content">
+                    {{ render_predictions(predictions.RELATIONSHIPS) }}
+                </div>
+
+                <!-- Tab: Health -->
+                <div id="tab-health" class="tab-content">
+                    {{ render_predictions(predictions.PAIN_ENEMY) }}
+                </div>
+
+                <!-- Tab: Longevity -->
+                <div id="tab-longevity" class="tab-content">
+                    {{ render_predictions(predictions.GOODBYE) }}
                 </div>
 
                 <!-- Tab: Marriage -->
                 <div id="tab-marriage" class="tab-content">
                     <div class="prediction-topic">
                         <h3 class="prediction-title">{{ t('report_marriage_promise_title') }}</h3>
-                        <p class="prediction-text" style="font-size: 1.1rem; color: #ffffff; padding: 1rem; background: rgba(246, 201, 14, 0.05); border-left: 4px solid var(--gold); border-radius: 4px;">
+                        <p class="prediction-text" style="font-size: 1.1rem; color: #ffffff; padding: 1.25rem; background: rgba(246, 201, 14, 0.05); border-left: 4px solid var(--gold); border-radius: 8px; margin-top: 0.75rem;">
                             {{ marriage.Promise }}
                         </p>
                     </div>
