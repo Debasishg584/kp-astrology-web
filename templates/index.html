@@ -16,7 +16,12 @@
                 <span class="logo-text">{{ t('app_title') }}</span>
                 <span class="logo-sub">KP Vedic Astrology Suite</span>
             </a>
-            <ul class="nav-menu">
+            <button class="hamburger-btn" id="hamburger-btn" aria-label="Toggle navigation">
+                <span class="hamburger-bar"></span>
+                <span class="hamburger-bar"></span>
+                <span class="hamburger-bar"></span>
+            </button>
+            <ul class="nav-menu" id="nav-menu">
                 <li class="nav-item"><a href="#">{{ t('nav_home') }}</a></li>
                 <li class="nav-item"><a href="#services">{{ t('nav_services') }}</a></li>
                 <li class="nav-item"><a href="#calculator">{{ t('nav_calculator') }}</a></li>
@@ -369,6 +374,26 @@
             const url = new URL(window.location.href);
             url.searchParams.set('lang', lang);
             window.location.href = url.toString();
+        }
+
+        // Hamburger Menu Toggle
+        const hamburgerBtn = document.getElementById('hamburger-btn');
+        const navMenu = document.getElementById('nav-menu');
+
+        if (hamburgerBtn && navMenu) {
+            hamburgerBtn.addEventListener('click', () => {
+                hamburgerBtn.classList.toggle('active');
+                navMenu.classList.toggle('active');
+            });
+
+            // Close menu when clicking a link
+            const navLinks = navMenu.querySelectorAll('a');
+            navLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    hamburgerBtn.classList.remove('active');
+                    navMenu.classList.remove('active');
+                });
+            });
         }
     </script>
 </body>
