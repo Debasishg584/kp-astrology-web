@@ -81,10 +81,8 @@ except ImportError:
     def get_lang() -> str: return "en"
     def convert_number(s: str) -> str: return s
 
-try:
-    from src.location import LocationManager         # type: ignore
-except ImportError:
-    LocationManager = None                           # type: ignore
+# LocationManager is lazy-loaded in KPApp to avoid loading pandas at startup
+LocationManager = None
 
 try:
     from src.charts import ChartDrawer               # type: ignore
@@ -732,6 +730,14 @@ class KPApp:
     def __init__(self, root: tk.Tk, mode: AppMode = AppMode.BIRTH) -> None:
         self.root   = root
         self.mode   = AppMode(mode)   # FIX ⑩ — coerce to enum
+
+        # Lazy load LocationManager to avoid importing pandas at startup
+        global LocationManager
+        if LocationManager is None:
+            try:
+                from src.location import LocationManager
+            except ImportError:
+                LocationManager = None
 
         # FIX ④ — engine owns all data; UI owns nothing
         self._engine = ChartEngine()

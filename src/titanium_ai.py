@@ -59,16 +59,8 @@ except ImportError:
     analyze_past_life_story = None
 
 # --- ML Integration ---
-try:
-    from src.ml_engine import ml_engine # type: ignore
-    ML_AVAILABLE = True
-except ImportError:
-    try:
-        from ml_engine import ml_engine # type: ignore
-        ML_AVAILABLE = True
-    except ImportError:
-        ML_AVAILABLE = False
-        ml_engine = None
+ML_AVAILABLE = True
+ml_engine = None
 
 # --- Theme Module ---
 try:
@@ -1280,6 +1272,16 @@ class TitaniumAI:
                      self.log(f"   ☀️ TRANSIT SCAN [{dasha}]: Error {e}", "red")
 
     def _run_ml_candidate_verification(self):
+        global ml_engine, ML_AVAILABLE
+        if ml_engine is None and ML_AVAILABLE:
+            try:
+                from src.ml_engine import ml_engine
+            except ImportError:
+                try:
+                    from ml_engine import ml_engine
+                except ImportError:
+                    ML_AVAILABLE = False
+                    ml_engine = None
         if not ML_AVAILABLE or not ml_engine: return
         self.log(f"\n🧠 INITIALIZING ML VERIFICATION PROTOCOL...", "cyan")
         event_type = "death" 
