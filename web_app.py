@@ -18,7 +18,7 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 if os.path.exists(os.path.join(BASE_DIR, "main.py")):
     PROD_PATH = BASE_DIR
 else:
-    PROD_PATH = r"C:\kp_astrology_softwarer_final(gravity)"
+    PROD_PATH = r"E:\kp_astrology_softwarer_final(gravity)"
 
 if PROD_PATH not in sys.path:
     sys.path.insert(0, PROD_PATH)
