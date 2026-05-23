@@ -192,65 +192,8 @@ def calculate():
     except Exception as e:
         return f"<h3>Calculation Error</h3><p>{str(e)}</p><a href='/'>Go back</a>"
         
-    # Inject metadata for Titanium Forensic Engines
-    exported['metadata'] = {
-        'dob': birth_date,
-        'language': lang
-    }
-    
-    # Run predictions dynamically
-    predictor = KPPredictor(exported)
-    
-    categories = {
-        "WHO_AM_I": [
-            "Past Life Karma", "Past Life Nature", "Karmic Debt", 
-            "Purpose of Rebirth", "Native Nature", "Fear & Subconscious", "Spirituality"
-        ],
-        "FAMILY": [
-            "Father Nature", "Mother Nature", "Sibling Nature", 
-            "Friends Nature", "Spouse Nature", "Vastu", "Buy House", "Buy Vehicle"
-        ],
-        "KNOWLEDGE": [
-            "School Success", "Higher Education", "Skills", "Weakness"
-        ],
-        "WORK": [
-            "Interview", "Profession", "Promotion", "Bank Balance", "Speculation"
-        ],
-        "RELATIONSHIPS": [
-            "Love Relationships", "Married Life", "Multiple Marriages", "Sex Capacity", "Extra Marital"
-        ],
-        "PAIN_ENEMY": [
-            "Immunity", "Disease", "Court Cases", "Imprisonment", "Hospitalization", "Accident"
-        ],
-        "GOODBYE": [
-            "Life Span", "Reason of Death"
-        ]
-    }
-    
     predictions_results = {}
-    for cat_name, topics in categories.items():
-        predictions_results[cat_name] = []
-        for topic in topics:
-            rule = KP_RULES.get(topic)
-            if rule:
-                promise_strength = predictor._check_promise(rule["pos"], rule["neg"], p1["cusps"], engine.calc)
-                result_text = predictor._poetic_interpretation(topic, promise_strength, rule["karaka"], lang=lang)
-                predictions_results[cat_name].append({
-                    "topic": topic,
-                    "text": result_text,
-                    "score": promise_strength,
-                    "karaka": rule["karaka"]
-                })
-
-    # Run Marriage and Divorce Forensic calculations
-    try:
-        forensics = MarriageWidowedForensics(exported)
-        marriage_report = forensics.calculate_timing_report()
-    except Exception:
-        marriage_report = {
-            "Promise": "Unable to calculate marriage promise.",
-            "Event_Windows": []
-        }
+    marriage_report = {}
 
     # Calculate Rasi and Bhava Chalit placements for visual chart drawing
     SIGN_NAMES = [
