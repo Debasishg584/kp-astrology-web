@@ -14,9 +14,12 @@ export default function Report({ data, onBack }) {
       {/* Sticky Navigation Bar */}
       <header className="navbar-header">
         <div className="container nav-container">
-          <a href="#" className="logo-link" onClick={(e) => { e.preventDefault(); onBack(); }}>
-            <span className="logo-text">{t('app_title')}</span>
-            <span className="logo-sub">KP Vedic Astrology Suite</span>
+          <a href="#" className="logo-link" onClick={(e) => { e.preventDefault(); onBack(); }} style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', gap: '0.75rem' }}>
+            <img src="/logo.png" alt="Divya Drishti Logo" style={{ width: '40px', height: '40px', borderRadius: '50%', border: '1.5px solid var(--gold)', boxShadow: '0 0 10px var(--gold-glow)' }} />
+            <div style={{ display: 'flex', flexDirection: 'column' }}>
+              <span className="logo-text">{t('app_title')}</span>
+              <span className="logo-sub">KP Vedic Astrology Suite</span>
+            </div>
           </a>
           <ul className="nav-menu">
             <li className="nav-item">
@@ -227,9 +230,12 @@ export default function Report({ data, onBack }) {
       {/* Footer */}
       <footer className="site-footer" style={{ marginTop: '4rem' }}>
         <div className="container">
-          <div className="footer-logo">
-            <span className="logo-text">{t('app_title')}</span><br />
-            <span className="logo-sub">KP Vedic Astrology Specialist</span>
+          <div className="footer-logo" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.5rem' }}>
+            <img src="/logo.png" alt="Divya Drishti Logo" style={{ width: '50px', height: '50px', borderRadius: '50%', border: '1.5px solid var(--gold)', boxShadow: '0 0 10px var(--gold-glow)' }} />
+            <div>
+              <span className="logo-text">{t('app_title')}</span><br />
+              <span className="logo-sub">KP Vedic Astrology Specialist</span>
+            </div>
           </div>
           
           <ul className="footer-links">

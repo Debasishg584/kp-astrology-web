@@ -38,6 +38,23 @@ body {
     line-height: 1.6;
     min-height: 100vh;
     overflow-x: hidden;
+    position: relative;
+}
+
+body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('/logo.png');
+    background-repeat: no-repeat;
+    background-position: center 35%;
+    background-size: 500px;
+    opacity: 0.025; /* Very subtle watermark that does not compromise text readability */
+    pointer-events: none;
+    z-index: -1;
 }
 
 /* Base Container */

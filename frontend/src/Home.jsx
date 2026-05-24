@@ -90,9 +90,12 @@ export default function Home({ lang, onLanguageChange, onCalculate }) {
       {/* Sticky Navigation Bar */}
       <header className="navbar-header">
         <div className="container nav-container">
-          <a href="#" className="logo-link">
-            <span className="logo-text">{t('app_title')}</span>
-            <span className="logo-sub">KP Vedic Astrology Suite</span>
+          <a href="#" className="logo-link" style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', gap: '0.75rem' }}>
+            <img src="/logo.png" alt="Divya Drishti Logo" style={{ width: '40px', height: '40px', borderRadius: '50%', border: '1.5px solid var(--gold)', boxShadow: '0 0 10px var(--gold-glow)' }} />
+            <div style={{ display: 'flex', flexDirection: 'column' }}>
+              <span className="logo-text">{t('app_title')}</span>
+              <span className="logo-sub">KP Vedic Astrology Suite</span>
+            </div>
           </a>
           <button 
             className={`hamburger-btn ${isHamburgerActive ? 'active' : ''}`}
@@ -309,7 +312,7 @@ export default function Home({ lang, onLanguageChange, onCalculate }) {
               <div className="about-graphics">
                 <div className="cosmic-seal">
                   <div className="cosmic-seal-inner">
-                    <div className="cosmic-seal-center">🔮</div>
+                    <img src="/logo.png" className="cosmic-seal-center" alt="Divya Drishti Emblem" style={{ width: '150px', height: '150px', borderRadius: '50%', objectFit: 'cover' }} />
                   </div>
                 </div>
               </div>
@@ -504,9 +507,12 @@ export default function Home({ lang, onLanguageChange, onCalculate }) {
       {/* Footer */}
       <footer className="site-footer">
         <div className="container">
-          <div className="footer-logo">
-            <span className="logo-text">{t('app_title')}</span><br />
-            <span className="logo-sub">KP Vedic Astrology Specialist</span>
+          <div className="footer-logo" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.5rem' }}>
+            <img src="/logo.png" alt="Divya Drishti Logo" style={{ width: '50px', height: '50px', borderRadius: '50%', border: '1.5px solid var(--gold)', boxShadow: '0 0 10px var(--gold-glow)' }} />
+            <div>
+              <span className="logo-text">{t('app_title')}</span><br />
+              <span className="logo-sub">KP Vedic Astrology Specialist</span>
+            </div>
           </div>
           
           <ul className="footer-links">
