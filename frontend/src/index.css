@@ -50,11 +50,11 @@ body::before {
     height: 100%;
     background-image: url('/logo.png');
     background-repeat: no-repeat;
-    background-position: center 35%;
-    background-size: 500px;
-    opacity: 0.025; /* Very subtle watermark that does not compromise text readability */
+    background-position: center center;
+    background-size: 600px;
+    opacity: 0.08;
     pointer-events: none;
-    z-index: -1;
+    z-index: 0;
 }
 
 /* Base Container */
