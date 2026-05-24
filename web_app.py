@@ -25,7 +25,7 @@ if PROD_PATH not in sys.path:
     sys.path.insert(0, os.path.join(PROD_PATH, "src"))
 
 import datetime
-from flask import Flask, render_template, request, redirect, url_for, session
+from flask import Flask, request, jsonify, send_from_directory
 
 # Guarded imports from production codebase
 try:
@@ -49,7 +49,7 @@ if ENGINE_LOADED:
         pass
 
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder="frontend/dist", static_url_path="")
 app.secret_key = "divya_drishti_secret_key_987654"
 
 def translate_planet(name, lang=None):
@@ -71,130 +71,31 @@ def translate_nakshatra(name, lang=None):
     res = t(key, lang=lang)
     return res if res != key else name
 
-def translate_aspect(name, lang=None):
-    clean_name = str(name).strip().replace(" ", "_")
-    mapping = {
-        "Conjunction": "asp_Conjunction",
-        "Sextile": "asp_Sextile",
-        "Square": "asp_Square",
-        "Trine": "asp_Trine",
-        "Opposition": "asp_Opposition",
-        "KP (P-P)": "asp_KP_PP",
-        "KP (P-H)": "asp_KP_PH",
-        "Vedic (P-P)": "asp_Vedic_PP",
-        "Vedic (P-H)": "asp_Vedic_PH",
-        "Casts Drishti": "asp_Casts_Drishti",
-        "7th House Drishti": "asp_7th_House_Drishti",
-        "4th House Drishti": "asp_4th_House_Drishti",
-        "8th House Drishti": "asp_8th_House_Drishti",
-        "3rd House Drishti": "asp_3rd_House_Drishti",
-        "10th House Drishti": "asp_10th_House_Drishti",
-        "5th House Drishti": "asp_5th_House_Drishti",
-        "9th House Drishti": "asp_9th_House_Drishti",
-        "Benefic": "qual_Benefic",
-        "Malefic": "qual_Malefic",
-        "Neutral": "qual_Neutral"
-    }
-    key = mapping.get(name) or mapping.get(clean_name)
-    if key:
-        from src.translations import t
-        return t(key, lang=lang)
-    return name
-
-@app.context_processor
-def inject_translations():
-    from src.translations import t, convert_number
-    lang = request.args.get('lang')
-    if lang in ['en', 'hi', 'bn']:
-        session['lang'] = lang
-    else:
-        lang = session.get('lang', 'en')
-    
-    def translate_helper(key, **kwargs):
-        return t(key, lang=lang, **kwargs)
-    
-    def number_helper(val):
-        return convert_number(val, lang=lang)
-    
-    def planet_helper(name):
-        return translate_planet(name, lang=lang)
-    
-    def sign_helper(name):
-        return translate_sign_name(name, lang=lang)
-    
-    def nakshatra_helper(name):
-        return translate_nakshatra(name, lang=lang)
-    
-    def aspect_helper(name):
-        return translate_aspect(name, lang=lang)
-    
-    return dict(
-        current_lang=lang,
-        t=translate_helper,
-        n=number_helper,
-        tp=planet_helper,
-        ts=sign_helper,
-        tn=nakshatra_helper,
-        ta=aspect_helper
-    )
-
-@app.route('/')
-def index():
+@app.route('/api/calculate', methods=['POST'])
+def api_calculate():
     if not ENGINE_LOADED:
-        return f"<h3>Failed to load astrology engine from {PROD_PATH}</h3><p>Error: {_IMPORT_ERROR}</p>"
-    return render_template('index.html')
-
-@app.route('/calculate', methods=['GET', 'POST'])
-def calculate():
-    if not ENGINE_LOADED:
-        return f"<h3>Failed to load astrology engine</h3>"
+        return jsonify({"error": f"Failed to load astrology engine: {_IMPORT_ERROR}"}), 500
         
-    lang = session.get('lang', 'en')
+    data = request.get_json() or {}
+    name = data.get('name', 'Anonymous')
+    birth_date = data.get('birth_date', '')
+    birth_time = data.get('birth_time', '')
+    try:
+        lat = float(data.get('latitude', '0.0'))
+        lon = float(data.get('longitude', '0.0'))
+    except (ValueError, TypeError):
+        lat, lon = 0.0, 0.0
+    tz = data.get('timezone', '+05:30')
+    lang = data.get('lang', 'en')
     
-    if request.method == 'POST':
-        name = request.form.get('name', 'Anonymous')
-        birth_date = request.form.get('birth_date', '')
-        birth_time = request.form.get('birth_time', '')
-        try:
-            lat = float(request.form.get('latitude', '0.0'))
-            lon = float(request.form.get('longitude', '0.0'))
-        except ValueError:
-            lat, lon = 0.0, 0.0
-        tz = request.form.get('timezone', '+05:30')
-        
-        # Save to session
-        session['last_calc_data'] = {
-            'name': name,
-            'birth_date': birth_date,
-            'birth_time': birth_time,
-            'latitude': lat,
-            'longitude': lon,
-            'timezone': tz
-        }
-    else:
-        # GET request: load from session
-        calc_data = session.get('last_calc_data')
-        if not calc_data:
-            return redirect(url_for('index'))
-            
-        name = calc_data.get('name', 'Anonymous')
-        birth_date = calc_data.get('birth_date', '')
-        birth_time = calc_data.get('birth_time', '')
-        lat = calc_data.get('latitude', 0.0)
-        lon = calc_data.get('longitude', 0.0)
-        tz = calc_data.get('timezone', '+05:30')
-
     # Use production ChartEngine to perform calculations
     engine = ChartEngine()
     try:
         p1 = engine._calculate_one(birth_date, birth_time, lat, lon, tz, AppMode.BIRTH)
         exported = engine.build_export(p1)
     except Exception as e:
-        return f"<h3>Calculation Error</h3><p>{str(e)}</p><a href='/'>Go back</a>"
+        return jsonify({"error": f"Calculation Error: {str(e)}"}), 400
         
-    predictions_results = {}
-    marriage_report = {}
-
     # Calculate Rasi and Bhava Chalit placements for visual chart drawing
     SIGN_NAMES = [
         'Aries', 'Taurus', 'Gemini', 'Cancer', 'Leo', 'Virgo',
@@ -227,36 +128,110 @@ def calculate():
         c_sign = c['sign']
         cusp_sign_indices.append(SIGN_NAMES.index(c_sign) + 1 if c_sign in SIGN_NAMES else 1)
 
-    return render_template(
-        'report.html',
-        name=name,
-        birth_date=birth_date,
-        birth_time=birth_time,
-        lat=lat,
-        lon=lon,
-        tz=tz,
-        chart=exported,
-        predictions=predictions_results,
-        marriage=marriage_report,
-        asc_sign_idx=asc_sign_idx,
-        rasi_occupancy=rasi_occupancy,
-        bhava_occupancy=bhava_occupancy,
-        cusp_sign_indices=cusp_sign_indices
-    )
-
-
-@app.route('/contact', methods=['POST'])
-def contact():
-    contact_name = request.form.get('contact_name', '')
-    contact_whatsapp = request.form.get('contact_whatsapp', '')
-    contact_subject = request.form.get('contact_subject', '')
-    contact_message = request.form.get('contact_message', '')
+    # Let's perform backend translation of variables so React gets fully-translated data
+    from src.translations import t, convert_number
     
-    # Save the query to a local text file and print it to Flask console
+    # Translate planetary positions
+    translated_planets = []
+    for p in exported['planetary_positions']:
+        translated_planets.append({
+            'planet': translate_planet(p['planet'], lang=lang),
+            'longitude': p['longitude'],
+            'longitude_dms': convert_number(p['longitude_dms'], lang=lang),
+            'sign': translate_sign_name(p['sign'], lang=lang),
+            'nakshatra': translate_nakshatra(p['nakshatra'], lang=lang),
+            'star_lord': translate_planet(p['star_lord'], lang=lang),
+            'sub_lord': translate_planet(p['sub_lord'], lang=lang)
+        })
+        
+    # Translate house cusps
+    translated_cusps = []
+    for c in exported['house_cusps']:
+        translated_cusps.append({
+            'cusp': convert_number(c['cusp'], lang=lang),
+            'longitude': c['longitude'],
+            'longitude_dms': convert_number(c['longitude_dms'], lang=lang),
+            'sign': translate_sign_name(c['sign'], lang=lang),
+            'sign_lord': translate_planet(c['sign_lord'], lang=lang),
+            'star_lord': translate_planet(c['star_lord'], lang=lang),
+            'sub_lord': translate_planet(c['sub_lord'], lang=lang)
+        })
+        
+    # Translate planet significators
+    translated_significators = []
+    for s in exported['planet_significators']:
+        translated_significators.append({
+            'planet': translate_planet(s['planet'], lang=lang),
+            'Source_Row': convert_number(s['Source_Row'], lang=lang),
+            'Result_Row': convert_number(s['Result_Row'], lang=lang)
+        })
+
+    # Prepare response data
+    response_data = {
+        'name': name,
+        'birth_date': convert_number(birth_date, lang=lang),
+        'birth_time': convert_number(birth_time, lang=lang),
+        'latitude': convert_number(str(lat), lang=lang),
+        'longitude': convert_number(str(lon), lang=lang),
+        'timezone': convert_number(tz, lang=lang),
+        'chart': {
+            'planetary_positions': translated_planets,
+            'house_cusps': translated_cusps,
+            'planet_significators': translated_significators
+        },
+        'asc_sign_idx': asc_sign_idx,
+        'rasi_occupancy': rasi_occupancy,
+        'bhava_occupancy': bhava_occupancy,
+        'cusp_sign_indices': cusp_sign_indices,
+        # Pass translated text for all translation keys of interest
+        'translations': {
+            'app_title': t('app_title', lang=lang),
+            'report_birth_summary': t('report_birth_summary', lang=lang),
+            'name_label': t('name', lang=lang),
+            'dob_label': t('dob_label', lang=lang),
+            'tob_label': t('tob_label', lang=lang),
+            'lat_label': t('lat_label', lang=lang),
+            'lon_label': t('lon_label', lang=lang),
+            'tz_label': t('tz_label', lang=lang),
+            'report_visual_kundli': t('report_visual_kundli', lang=lang),
+            'report_north_diamond': t('report_north_diamond', lang=lang),
+            'report_south_box': t('report_south_box', lang=lang),
+            'report_rasi_chart': t('report_rasi_chart', lang=lang),
+            'report_bhava_chart': t('report_bhava_chart', lang=lang),
+            'report_planet_pos': t('report_planet_pos', lang=lang),
+            'report_house_cusp': t('report_house_cusp', lang=lang),
+            'report_planet_sig': t('report_planet_sig', lang=lang),
+            'col_planet': t('col_planet', lang=lang),
+            'col_longitude': t('col_longitude', lang=lang),
+            'col_sign': t('col_sign', lang=lang),
+            'col_nakshatra': t('col_nakshatra', lang=lang),
+            'col_star_lord': t('col_star_lord', lang=lang),
+            'col_sub_lord': t('col_sub_lord', lang=lang),
+            'col_cusp': t('col_cusp', lang=lang),
+            'col_sign_lord': t('col_sign_lord', lang=lang),
+            'report_source_row': t('report_source_row', lang=lang),
+            'report_result_row': t('report_result_row', lang=lang),
+            'report_back_btn': t('report_back_btn', lang=lang),
+            'report_cta_title': t('report_cta_title', lang=lang),
+            'report_cta_sub': t('report_cta_sub', lang=lang),
+            'report_cta_desc': t('report_cta_desc', lang=lang),
+            'report_cta_btn': t('report_cta_btn', lang=lang),
+        }
+    }
+    return jsonify(response_data)
+
+
+@app.route('/api/contact', methods=['POST'])
+def api_contact():
+    data = request.get_json() or {}
+    contact_name = data.get('contact_name', '')
+    contact_whatsapp = data.get('contact_whatsapp', '')
+    contact_subject = data.get('contact_subject', '')
+    contact_message = data.get('contact_message', '')
+    
     log_line = f"[{datetime.datetime.now()}] Name: {contact_name}, WhatsApp: {contact_whatsapp}, Subject: {contact_subject}, Message: {contact_message}\n"
     print("=== NEW CONTACT INQUIRY RECEIVED ===")
     print(log_line)
-    print("====================================")
     
     try:
         log_dir = os.path.join(BASE_DIR, "logs")
@@ -265,11 +240,21 @@ def contact():
             f.write(log_line)
     except Exception as e:
         print(f"Error saving contact query: {e}")
+        return jsonify({"success": False, "error": str(e)}), 500
         
-    return redirect(url_for('index') + '?contact_success=true#contact')
+    return jsonify({"success": True})
+
+
+@app.route("/", defaults={"path": ""})
+@app.route("/<path:path>")
+def catch_all(path):
+    if path.startswith("api/"):
+        return jsonify({"error": "Not Found"}), 404
+    # Serve index.html from React dist folder
+    return send_from_directory(app.static_folder, "index.html")
 
 
 if __name__ == '__main__':
-    print("Starting Divya Drishti Local Web App...")
+    print("Starting Divya Drishti Local REST API & React Server...")
     print("Open http://127.0.0.1:5000 in your browser.")
     app.run(host='127.0.0.1', port=5000, debug=True)
