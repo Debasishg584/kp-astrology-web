@@ -51,8 +51,8 @@ body::before {
     background-image: url('/logo.png');
     background-repeat: no-repeat;
     background-position: center center;
-    background-size: 600px;
-    opacity: 0.08;
+    background-size: 700px;
+    opacity: 0.15;
     pointer-events: none;
     z-index: 0;
 }
