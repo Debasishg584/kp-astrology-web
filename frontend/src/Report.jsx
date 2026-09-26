@@ -15,7 +15,7 @@ export default function Report({ data, onBack }) {
       <header className="navbar-header">
         <div className="container nav-container">
           <a href="#" className="logo-link" onClick={(e) => { e.preventDefault(); onBack(); }} style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', gap: '0.75rem' }}>
-            <img src="/logo.png" alt="Divya Drishti Logo" style={{ width: '40px', height: '40px', borderRadius: '50%', border: '1.5px solid var(--gold)', boxShadow: '0 0 10px var(--gold-glow)' }} />
+            <img src="/logo.png" alt="Daivya Drishti Logo" style={{ width: '40px', height: '40px', borderRadius: '50%', border: '1.5px solid var(--gold)', boxShadow: '0 0 10px var(--gold-glow)' }} />
             <div style={{ display: 'flex', flexDirection: 'column' }}>
               <span className="logo-text">{t('app_title')}</span>
               <span className="logo-sub">KP Vedic Astrology Suite</span>
@@ -231,7 +231,7 @@ export default function Report({ data, onBack }) {
       <footer className="site-footer" style={{ marginTop: '4rem' }}>
         <div className="container">
           <div className="footer-logo" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.5rem' }}>
-            <img src="/logo.png" alt="Divya Drishti Logo" style={{ width: '50px', height: '50px', borderRadius: '50%', border: '1.5px solid var(--gold)', boxShadow: '0 0 10px var(--gold-glow)' }} />
+            <img src="/logo.png" alt="Daivya Drishti Logo" style={{ width: '50px', height: '50px', borderRadius: '50%', border: '1.5px solid var(--gold)', boxShadow: '0 0 10px var(--gold-glow)' }} />
             <div>
               <span className="logo-text">{t('app_title')}</span><br />
               <span className="logo-sub">KP Vedic Astrology Specialist</span>
@@ -247,7 +247,7 @@ export default function Report({ data, onBack }) {
           </ul>
           
           <p className="footer-copy">
-            &copy; 2026 Divya Drishti Astrology. All rights reserved. Designed for Debasish Guha.
+            &copy; 2026 Daivya Drishti Astrology. All rights reserved. Designed for Debasish Guha.
           </p>
           <p className="footer-disclaimer">
             Disclaimer: Astrological calculations and predictions are based on the Krishnamurti Paddhati (KP System) principles. Astrological analyses are for guidance and informational purposes, and decisions should be made using individual discretion and reasoning.
