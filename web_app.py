@@ -25,6 +25,9 @@ if PROD_PATH not in sys.path:
     sys.path.insert(0, os.path.join(PROD_PATH, "src"))
 
 import datetime
+import json
+import urllib.error
+import urllib.request
 from flask import Flask, request, jsonify, send_from_directory
 
 # Guarded imports from production codebase
@@ -50,7 +53,48 @@ if ENGINE_LOADED:
 
 
 app = Flask(__name__, static_folder="frontend/dist", static_url_path="")
-app.secret_key = "divya_drishti_secret_key_987654"
+# Keep production secrets out of the public repository.
+app.secret_key = os.environ.get("SECRET_KEY") or os.urandom(32)
+
+WHATSAPP_GRAPH_VERSION = os.environ.get("WHATSAPP_GRAPH_VERSION", "").strip()
+WHATSAPP_ACCESS_TOKEN = os.environ.get("WHATSAPP_ACCESS_TOKEN", "").strip()
+WHATSAPP_PHONE_NUMBER_ID = os.environ.get("WHATSAPP_PHONE_NUMBER_ID", "").strip()
+WHATSAPP_RECIPIENT_NUMBER = os.environ.get("WHATSAPP_RECIPIENT_NUMBER", "").strip()
+
+def send_whatsapp_notification(message):
+    """Optional Meta WhatsApp Cloud API notification; wa.me remains the fallback."""
+    if not all([WHATSAPP_GRAPH_VERSION, WHATSAPP_ACCESS_TOKEN, WHATSAPP_PHONE_NUMBER_ID, WHATSAPP_RECIPIENT_NUMBER]):
+        return {"configured": False, "sent": False}
+
+    endpoint = f"https://graph.facebook.com/{WHATSAPP_GRAPH_VERSION}/{WHATSAPP_PHONE_NUMBER_ID}/messages"
+    payload = {
+        "messaging_product": "whatsapp",
+        "to": WHATSAPP_RECIPIENT_NUMBER,
+        "type": "text",
+        "text": {"preview_url": False, "body": message}
+    }
+
+    req = urllib.request.Request(
+        endpoint,
+        data=json.dumps(payload).encode("utf-8"),
+        headers={
+            "Authorization": f"Bearer {WHATSAPP_ACCESS_TOKEN}",
+            "Content-Type": "application/json"
+        },
+        method="POST"
+    )
+
+    try:
+        with urllib.request.urlopen(req, timeout=15) as response:
+            status = getattr(response, "status", 200)
+            return {"configured": True, "sent": 200 <= status < 300}
+    except urllib.error.HTTPError as exc:
+        error_body = exc.read().decode("utf-8", "ignore")
+        print(f"WhatsApp API HTTP error {exc.code}: {error_body}")
+        return {"configured": True, "sent": False, "error": f"HTTP {exc.code}"}
+    except Exception as exc:
+        print(f"WhatsApp API error: {exc}")
+        return {"configured": True, "sent": False, "error": str(exc)}
 
 def translate_planet(name, lang=None):
     clean_name = str(name).strip()
@@ -224,15 +268,27 @@ def api_calculate():
 @app.route('/api/contact', methods=['POST'])
 def api_contact():
     data = request.get_json() or {}
-    contact_name = data.get('contact_name', '')
-    contact_whatsapp = data.get('contact_whatsapp', '')
-    contact_subject = data.get('contact_subject', '')
-    contact_message = data.get('contact_message', '')
-    
-    log_line = f"[{datetime.datetime.now()}] Name: {contact_name}, WhatsApp: {contact_whatsapp}, Subject: {contact_subject}, Message: {contact_message}\n"
+    contact_name = str(data.get('contact_name', '')).strip()
+    contact_whatsapp = str(data.get('contact_whatsapp', '')).strip()
+    contact_subject = str(data.get('contact_subject', '')).strip()
+    contact_message = str(data.get('contact_message', '')).strip()
+
+    notification_message = (
+        "New Daivya Drishti Website Inquiry\n"
+        f"Name: {contact_name}\n"
+        f"WhatsApp: {contact_whatsapp}\n"
+        f"Subject: {contact_subject}\n"
+        f"Message: {contact_message}"
+    )
+
+    log_line = (
+        f"[{datetime.datetime.now()}] Name: {contact_name}, "
+        f"WhatsApp: {contact_whatsapp}, Subject: {contact_subject}, "
+        f"Message: {contact_message}\n"
+    )
     print("=== NEW CONTACT INQUIRY RECEIVED ===")
     print(log_line)
-    
+
     try:
         log_dir = os.path.join(BASE_DIR, "logs")
         os.makedirs(log_dir, exist_ok=True)
@@ -241,8 +297,15 @@ def api_contact():
     except Exception as e:
         print(f"Error saving contact query: {e}")
         return jsonify({"success": False, "error": str(e)}), 500
-        
-    return jsonify({"success": True})
+
+    whatsapp_result = send_whatsapp_notification(notification_message)
+
+    return jsonify({
+        "success": True,
+        "whatsapp_api_configured": whatsapp_result.get("configured", False),
+        "whatsapp_api_sent": whatsapp_result.get("sent", False),
+        "whatsapp_api_error": whatsapp_result.get("error")
+    })
 
 
 @app.route("/", defaults={"path": ""})
@@ -255,6 +318,6 @@ def catch_all(path):
 
 
 if __name__ == '__main__':
-    print("Starting Divya Drishti Local REST API & React Server...")
+    print("Starting Daivya Drishti Local REST API & React Server...")
     print("Open http://127.0.0.1:5000 in your browser.")
     app.run(host='127.0.0.1', port=5000, debug=True)
