@@ -5,7 +5,7 @@ export const LANGUAGES = {
 };
 
 export const TRANSLATIONS = {
-  app_title: { en: "Divya Drishti", hi: "दिव्य दृष्टि", bn: "দিব্য দৃষ্টি" },
+  app_title: { en: "Daivya Drishti", hi: "Daivya Drishti", bn: "Daivya Drishti" },
   nav_home: { en: "Home", hi: "होम", bn: "হোম" },
   nav_services: { en: "Services", hi: "सेवाएं", bn: "সেবা সমূহ" },
   nav_calculator: { en: "Calculator", hi: "कैलकुलेटर", bn: "ক্যালকুলেটর" },
@@ -48,9 +48,9 @@ export const TRANSLATIONS = {
   
   about_intro: { en: "About the Astrologer", hi: "ज्योतिषी के बारे में", bn: "জ্যোতিষী সম্পর্কে" },
   about_title: { en: "Designed for Debasish Guha", hi: "देवाशीष गुहा के लिए निर्मित", bn: "দেবাশীষ গুহর জন্য ডিজাইন করা" },
-  about_p1: { en: "Divya Drishti is a specialized KP Astrology calculator designed to provide instant and high-precision calculations based on Krishnamurti Paddhati (KP System) principles.", hi: "दिव्य दृष्टि एक विशेष केपी ज्योतिष कैलकुलेटर है जिसे कृष्णमूर्ति पद्धति (केपी सिस्टम) के सिद्धांतों के आधार पर त्वरित और उच्च-सटीक गणना प्रदान करने के लिए डिज़ाइन किया गया है।", bn: "দিব্য দৃষ্টি একটি বিশেষ কেপি জ্যোতিষ ক্যালকুলেটর যা কৃষ্ণমূর্তি পদ্ধতি (কেপি সিস্টেম) নীতির উপর ভিত্তি করে তাত্ক্ষণিক এবং উচ্চ-নির্ভুল গণনা সরবরাহ করার জন্য ডিজাইন করা হয়েছে।" },
+  about_p1: { en: "Daivya Drishti is a specialized KP Astrology calculator designed to provide instant and high-precision calculations based on Krishnamurti Paddhati (KP System) principles.", hi: "दिव्य दृष्टि एक विशेष केपी ज्योतिष कैलकुलेटर है जिसे कृष्णमूर्ति पद्धति (केपी सिस्टम) के सिद्धांतों के आधार पर त्वरित और उच्च-सटीक गणना प्रदान करने के लिए डिज़ाइन किया गया है।", bn: "দিব্য দৃষ্টি একটি বিশেষ কেপি জ্যোতিষ ক্যালকুলেটর যা কৃষ্ণমূর্তি পদ্ধতি (কেপি সিস্টেম) নীতির উপর ভিত্তি করে তাত্ক্ষণিক এবং উচ্চ-নির্ভুল গণনা সরবরাহ করার জন্য ডিজাইন করা হয়েছে।" },
   about_p2: { en: "This platform is fully powered by Swiss Ephemeris backends, mapping exact planet positions, star lords, sub lords, and cusp alignments without manual errors.", hi: "यह प्लेटफॉर्म पूरी तरह से स्विस एफिमेरिस बैकएंड द्वारा संचालित है, जो मैन्युअल त्रुटियों के बिना सटीक ग्रह स्थितियों, नक्षत्र स्वामियों, उप स्वामियों और भाव संरेखण का मानचित्रण करता है।", bn: "এই প্ল্যাটফর্মটি সম্পূর্ণরূপে সুইস এফিমেরিস ব্যাকএন্ড দ্বারা চালিত, যা ম্যানুয়াল ত্রুটি ছাড়াই সঠিক গ্রহের অবস্থান, নক্ষত্র স্বামী, উপ স্বামী এবং ভাবের অবস্থান নির্ধারণ করে।" },
-  about_p3: { en: "Whether you are looking for business expansion timing, relationship advice, or career growth, Divya Drishti delivers standard analytical outputs instantly.", hi: "चाहे आप व्यवसाय विस्तार के समय, संबंध सलाह, या करियर विकास की तलाश कर रहे हों, दिव्य दृष्टि तुरंत मानक विश्लेषणात्मक परिणाम प्रदान करती है।", bn: "আপনি ব্যবসার প্রসারের টাইমিং, সম্পর্কের পরামর্শ বা কেরিয়ারের উন্নতি খুঁজছেন না কেন, দিব্য দৃষ্টি তাত্ক্ষণিকভাবে সঠিক বিশ্লেষণাত্মক ফলাফল প্রদান করে।" },
+  about_p3: { en: "Whether you are looking for business expansion timing, relationship advice, or career growth, Daivya Drishti delivers standard analytical outputs instantly.", hi: "चाहे आप व्यवसाय विस्तार के समय, संबंध सलाह, या करियर विकास की तलाश कर रहे हों, दिव्य दृष्टि तुरंत मानक विश्लेषणात्मक परिणाम प्रदान करती है।", bn: "আপনি ব্যবসার প্রসারের টাইমিং, সম্পর্কের পরামর্শ বা কেরিয়ারের উন্নতি খুঁজছেন না কেন, দিব্য দৃষ্টি তাত্ক্ষণিকভাবে সঠিক বিশ্লেষণাত্মক ফলাফল প্রদান করে।" },
   
   pricing_title: { en: "Affordable Astrology Plans", hi: "किफायती ज्योतिष योजनाएं", bn: "সাশ্রয়ী মূল্যের জ্যোতিষ প্ল্যান সমূহ" },
   pricing_subtitle: { en: "Choose the package that best fits your astrological consultation needs.", hi: "वह पैकेज चुनें जो आपकी ज्योतिषीय परामर्श आवश्यकताओं के लिए सबसे उपयुक्त हो।", bn: "আপনার জ্যোতিষ পরামর্শের জন্য সবচেয়ে উপযুক্ত প্যাকেজটি বেছে নিন।" },
@@ -82,10 +82,10 @@ export const TRANSLATIONS = {
   
   contact_title: { en: "Get In Touch", hi: "संपर्क करें", bn: "যোগাযোগ করুন" },
   contact_subtitle: { en: "Send an inquiry for premium reports, consultation booking, or software licensing.", hi: "प्रीमियम रिपोर्ट, परामर्श बुकिंग, या सॉफ्टवेयर लाइसेंसिंग के लिए पूछताछ भेजें।", bn: "প্রিমিয়াম রিপোর্ট, পরামর্শ বুকিং বা সফটওয়্যার লাইসেন্সের জন্য জিজ্ঞাসা পাঠান।" },
-  contact_success_msg: { en: "Inquiry received successfully! We will contact you on WhatsApp.", hi: "पूछताछ सफलतापूर्वक प्राप्त हुई! हम आपसे व्हाट्सएप पर संपर्क करेंगे।", bn: "জিজ্ঞাসা সফলভাবে গৃহীত হয়েছে! আমরা হোয়াটসঅ্যাপে আপনার সাথে যোগাযোগ করব।" },
+  contact_success_msg: { en: "WhatsApp has been opened with your inquiry. Press Send in WhatsApp to deliver it.", hi: "आपकी पूछताछ के साथ व्हाट्सऐप खोला गया है। संदेश भेजने के लिए व्हाट्सऐप में Send दबाएँ।", bn: "আপনার জিজ্ঞাসা সহ হোয়াটসঅ্যাপ খোলা হয়েছে। বার্তা পাঠাতে হোয়াটসঅ্যাপে Send চাপুন।" },
   info_whatsapp_title: { en: "WhatsApp Us Directly", hi: "हमें सीधे व्हाट्सएप करें", bn: "হোয়াটসঅ্যাপে যোগাযোগ করুন" },
   info_license_title: { en: "Desktop Software License", hi: "डेस्कटॉप सॉफ्टवेयर लाइसेंस", bn: "ডেস্কটপ সফটওয়্যার লাইসেন্স" },
-  info_license_desc: { en: "Professional astrologers can buy offline desktop installation keys for Divya Drishti calculations.", hi: "पेशेवर ज्योतिषी दिव्य दृष्टि गणना के लिए ऑफलाइन डेस्कटॉप इंस्टॉलेशन कुंजियां खरीद सकते हैं।", bn: "পেশাদার জ্যোতিষীরা অফলাইন হিসাবনিকাশের জন্য দিব্য দৃষ্টির ডেস্কটপ ইনস্টলেশন কী (Key) কিনতে পারেন।" },
+  info_license_desc: { en: "Professional astrologers can buy offline desktop installation keys for Daivya Drishti calculations.", hi: "पेशेवर ज्योतिषी दिव्य दृष्टि गणना के लिए ऑफलाइन डेस्कटॉप इंस्टॉलेशन कुंजियां खरीद सकते हैं।", bn: "পেশাদার জ্যোতিষীরা অফলাইন হিসাবনিকাশের জন্য দিব্য দৃষ্টির ডেস্কটপ ইনস্টলেশন কী (Key) কিনতে পারেন।" },
   
   contact_name_label: { en: "Your Name", hi: "आपका नाम", bn: "আপনার নাম" },
   contact_whatsapp_label: { en: "WhatsApp Number (with Country Code)", hi: "व्हाट्सएप नंबर (देश कोड के साथ)", bn: "হোয়াটসঅ্যাপ নম্বর (কান্ট্রি কোড সহ)" },

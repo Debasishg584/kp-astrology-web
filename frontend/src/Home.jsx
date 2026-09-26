@@ -59,6 +59,25 @@ export default function Home({ lang, onLanguageChange, onCalculate }) {
   const handleContactSubmit = async (e) => {
     e.preventDefault();
     setIsSubmittingContact(true);
+
+    // Direct WhatsApp handoff works even before server-side API credentials are configured.
+    const whatsappMessage = [
+      'New Daivya Drishti Website Inquiry',
+      `Name: ${contactData.contact_name}`,
+      `WhatsApp: ${contactData.contact_whatsapp}`,
+      `Subject: ${contactData.contact_subject}`,
+      `Message: ${contactData.contact_message}`
+    ].join('\\n');
+
+    const whatsappUrl = `https://wa.me/918240954402?text=${encodeURIComponent(whatsappMessage)}`;
+    const whatsappWindow = window.open(whatsappUrl, '_blank', 'noopener,noreferrer');
+    if (!whatsappWindow) {
+      window.location.href = whatsappUrl;
+    }
+
+    setContactSuccess(true);
+    setTimeout(() => setContactSuccess(false), 5000);
+
     try {
       const res = await fetch('/api/contact', {
         method: 'POST',
@@ -68,17 +87,18 @@ export default function Home({ lang, onLanguageChange, onCalculate }) {
         body: JSON.stringify(contactData)
       });
       const data = await res.json();
-      if (data.success) {
-        setContactSuccess(true);
-        setContactData({
-          contact_name: '',
-          contact_whatsapp: '',
-          contact_subject: 'Premium Report Order',
-          contact_message: ''
-        });
-        setTimeout(() => setContactSuccess(false), 5000);
+      if (!res.ok) {
+        console.error('Contact API error:', data.error || 'Unknown server error');
       }
+
+      setContactData({
+        contact_name: '',
+        contact_whatsapp: '',
+        contact_subject: 'Premium Report Order',
+        contact_message: ''
+      });
     } catch (err) {
+      // WhatsApp handoff already happened, so an API logging failure should not block the customer.
       console.error("Contact submit error:", err);
     } finally {
       setIsSubmittingContact(false);
@@ -91,7 +111,7 @@ export default function Home({ lang, onLanguageChange, onCalculate }) {
       <header className="navbar-header">
         <div className="container nav-container">
           <a href="#" className="logo-link" style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', gap: '0.75rem' }}>
-            <img src="/logo.png" alt="Divya Drishti Logo" style={{ width: '40px', height: '40px', borderRadius: '50%', border: '1.5px solid var(--gold)', boxShadow: '0 0 10px var(--gold-glow)' }} />
+            <img src="/logo.png" alt="Daivya Drishti Logo" style={{ width: '40px', height: '40px', borderRadius: '50%', border: '1.5px solid var(--gold)', boxShadow: '0 0 10px var(--gold-glow)' }} />
             <div style={{ display: 'flex', flexDirection: 'column' }}>
               <span className="logo-text">{t('app_title')}</span>
               <span className="logo-sub">KP Vedic Astrology Suite</span>
@@ -312,7 +332,7 @@ export default function Home({ lang, onLanguageChange, onCalculate }) {
               <div className="about-graphics">
                 <div className="cosmic-seal">
                   <div className="cosmic-seal-inner">
-                    <img src="/logo.png" className="cosmic-seal-center" alt="Divya Drishti Emblem" style={{ width: '150px', height: '150px', borderRadius: '50%', objectFit: 'cover' }} />
+                    <img src="/logo.png" className="cosmic-seal-center" alt="Daivya Drishti Emblem" style={{ width: '150px', height: '150px', borderRadius: '50%', objectFit: 'cover' }} />
                   </div>
                 </div>
               </div>
@@ -508,7 +528,7 @@ export default function Home({ lang, onLanguageChange, onCalculate }) {
       <footer className="site-footer">
         <div className="container">
           <div className="footer-logo" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.5rem' }}>
-            <img src="/logo.png" alt="Divya Drishti Logo" style={{ width: '50px', height: '50px', borderRadius: '50%', border: '1.5px solid var(--gold)', boxShadow: '0 0 10px var(--gold-glow)' }} />
+            <img src="/logo.png" alt="Daivya Drishti Logo" style={{ width: '50px', height: '50px', borderRadius: '50%', border: '1.5px solid var(--gold)', boxShadow: '0 0 10px var(--gold-glow)' }} />
             <div>
               <span className="logo-text">{t('app_title')}</span><br />
               <span className="logo-sub">KP Vedic Astrology Specialist</span>
@@ -524,7 +544,7 @@ export default function Home({ lang, onLanguageChange, onCalculate }) {
           </ul>
           
           <p className="footer-copy">
-            &copy; 2026 Divya Drishti Astrology. All rights reserved. Designed for Debasish Guha.
+            &copy; 2026 Daivya Drishti Astrology. All rights reserved. Designed for Debasish Guha.
           </p>
           <p className="footer-disclaimer">
             Disclaimer: Astrological calculations and predictions are based on the Krishnamurti Paddhati (KP System) principles. Astrological analyses are for guidance and informational purposes, and decisions should be made using individual discretion and reasoning.

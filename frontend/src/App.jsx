@@ -15,10 +15,12 @@ export default function App() {
     if (urlLang && ['en', 'hi', 'bn'].includes(urlLang)) {
       setLang(urlLang);
       sessionStorage.setItem('lang', urlLang);
+      document.documentElement.lang = urlLang;
     } else {
       const savedLang = sessionStorage.getItem('lang');
       if (savedLang && ['en', 'hi', 'bn'].includes(savedLang)) {
         setLang(savedLang);
+        document.documentElement.lang = savedLang;
       }
     }
   }, []);
@@ -26,6 +28,7 @@ export default function App() {
   const handleLanguageChange = (newLang) => {
     setLang(newLang);
     sessionStorage.setItem('lang', newLang);
+    document.documentElement.lang = newLang;
     // Update URL query parameter
     const url = new URL(window.location.href);
     url.searchParams.set('lang', newLang);
